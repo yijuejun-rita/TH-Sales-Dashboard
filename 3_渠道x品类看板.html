@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>渠道×品类看板</title>
+<style>:root{
+  --bg:#faf9f5; --surface-1:#ffffff; --surface-2:#f2f1ea;
+  --text-primary:#26251f; --text-secondary:#7a7970; --text-muted:#a9a89d;
+  --border:#e1e0d9; --border-strong:#c3c2b7;
+  --text-danger:#c0392b; --bg-danger:#fbeaea;
+  --text-success:#1e7a1e; --bg-success:#eaf5ea;
+  --text-warning:#a9720b; --bg-warning:#fdf3df;
+  --accent:#2a78d6; --radius:12px;
+  --font-mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--text-primary); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased;}
+.page{max-width:960px; margin:0 auto; padding:32px 20px 64px;}
+.page h1{font-size:20px; font-weight:600; margin:0 0 4px;}
+.page .subtitle{font-size:13px; color:var(--text-secondary); margin:0 0 24px;}
+select, input[type=text]{border:1px solid var(--border-strong); border-radius:8px; padding:7px 10px; font-size:13px; background:var(--surface-1); color:var(--text-primary);}
+button{border:1px solid var(--border-strong); border-radius:8px; padding:7px 14px; font-size:13px; background:var(--surface-1); color:var(--text-primary); cursor:pointer;}
+button:hover{background:var(--surface-2);}
+table{width:100%; border-collapse:collapse; font-size:13px;}
+th{text-align:left; padding:8px 6px; color:var(--text-secondary); font-weight:500; border-bottom:1px solid var(--border);}
+td{padding:8px 6px; border-bottom:1px solid var(--border);}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
+
+.kpi-row{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:1.25rem;}
+.kpi{background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; flex:1; min-width:130px;}
+.kpi p:first-child{font-size:13px; color:var(--text-secondary); margin:0 0 4px;}
+.kpi p:last-child{font-size:22px; font-weight:600; margin:0;}
+.chart-box{background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; position:relative; height:280px; margin-bottom:1.25rem;}
+.table-wrap{overflow-x:auto; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:0.5rem 1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+<h1>渠道×品类销售看板</h1>
+<p class="subtitle">单位：PCS ｜ 数据周期：May–July 2026</p>
+
+<div style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin-bottom:1rem;">
+  <div>
+    <label style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">选择渠道</label>
+    <select id="ch-sel" style="min-width:160px;">
+      <option value="Konvy">Konvy</option>
+      <option value="Beautrium">Beautrium</option>
+      <option value="Eveandboy">Eveandboy</option>
+      <option value="KIS">KIS</option>
+    </select>
+  </div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi"><p>7月销量</p><p id="kpi-july">1,247</p></div>
+  <div class="kpi"><p>7月 vs 6月</p><p id="kpi-vsjune">+25.3%</p></div>
+  <div class="kpi"><p>7月 vs 5–6月均值</p><p id="kpi-vsavg">+44.4%</p></div>
+</div>
+
+<div class="chart-box"><canvas id="catChart"></canvas></div>
+<div style="display:flex; gap:16px; margin:-8px 0 16px; font-size:12px; color:var(--text-secondary);">
+  <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:2px; background:#c3c2b7; display:inline-block;"></span>May</span>
+  <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:2px; background:#85b7eb; display:inline-block;"></span>June</span>
+  <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:2px; background:#2a78d6; display:inline-block;"></span>July</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Category</th><th style="text-align:right;">May</th><th style="text-align:right;">June</th>
+      <th style="text-align:right;">July</th><th style="text-align:right;">July占比</th>
+      <th style="text-align:right;">vs June</th><th style="text-align:right;">变化贡献</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const DATA = {"Beautrium": {"未分类": {"May": 2, "June": 0, "July": 3}, "多用棒": {"May": 6, "June": 9, "July": 3}, "多用液": {"May": 15, "June": 7, "July": 6}, "多用膏": {"May": 891, "June": 440, "July": 469}, "水光多用棒": {"May": 42, "June": 22, "July": 33}, "修容盘": {"May": 14, "June": 6, "July": 6}, "水光多用液": {"May": 23, "June": 4, "July": 1}, "多用粉": {"May": 357, "June": 147, "July": 207}, "双色多用盘": {"May": 10, "June": 6, "July": 1}, "粉饼": {"May": 33, "June": 14, "July": 16}}, "Eveandboy": {"多用液": {"May": 2, "June": 4, "July": 2}, "水光多用棒": {"May": 18, "June": 12, "July": 15}, "多用粉": {"May": 170, "June": 134, "July": 142}, "多用膏": {"May": 341, "June": 325, "July": 295}, "粉饼": {"May": 12, "June": 10, "July": 18}, "双色多用盘": {"May": 1, "June": 1, "July": 3}, "高光盘": {"May": 0, "June": 0, "July": 1}, "多用棒": {"May": 1, "June": 1, "July": 2}, "修容盘": {"May": 0, "June": 2, "July": 3}, "水光多用液": {"May": 3, "June": 5, "July": 4}}, "KIS": {"多用液": {"May": 3, "June": 1, "July": 1}, "水光多用棒": {"May": 17, "June": 3, "July": 2}, "多用粉": {"May": 72, "June": 26, "July": 37}, "多用膏": {"May": 145, "June": 33, "July": 47}, "粉饼": {"May": 9, "June": 1, "July": 5}, "双色多用盘": {"May": 2, "June": 2, "July": 3}, "高光盘": {"May": 2, "June": 1, "July": 2}, "多用棒": {"May": 0, "June": 0, "July": 0}, "修容盘": {"May": 1, "June": 0, "July": 0}, "水光多用液": {"May": 0, "June": 2, "July": 0}}, "Konvy": {"多用液": {"May": 2, "June": 7, "July": 9}, "水光多用棒": {"May": 17, "June": 10, "July": 6}, "多用粉": {"May": 118, "June": 232, "July": 237}, "多用膏": {"May": 547, "June": 703, "July": 956}, "粉饼": {"May": 9, "June": 12, "July": 14}, "双色多用盘": {"May": 12, "June": 7, "July": 3}, "高光盘": {"May": 7, "June": 5, "July": 2}, "多用棒": {"May": 6, "June": 2, "July": 3}, "修容盘": {"May": 14, "June": 14, "July": 15}, "水光多用液": {"May": 0, "June": 3, "July": 2}}};
+let chart;
+
+function fmtPct(p){ return p===null ? '—' : (p>=0?'+':'') + (p*100).toFixed(1) + '%'; }
+
+function render() {
+  const ch = document.getElementById('ch-sel').value;
+  const cats = DATA[ch];
+  const entries = Object.entries(cats).sort((a,b) => b[1].July - a[1].July);
+
+  const julyTotal = entries.reduce((s,e) => s + e[1].July, 0);
+  const juneTotal = entries.reduce((s,e) => s + e[1].June, 0);
+  const mayTotal = entries.reduce((s,e) => s + e[1].May, 0);
+  const priorAvg = (mayTotal + juneTotal) / 2;
+  const vsJune = juneTotal > 0 ? (julyTotal - juneTotal) / juneTotal : null;
+  const vsAvg = priorAvg > 0 ? (julyTotal - priorAvg) / priorAvg : null;
+  const totalChange = julyTotal - juneTotal;
+
+  document.getElementById('kpi-july').textContent = julyTotal.toLocaleString();
+  document.getElementById('kpi-vsjune').textContent = fmtPct(vsJune);
+  document.getElementById('kpi-vsavg').textContent = fmtPct(vsAvg);
+
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = entries.map(([cat, v]) => {
+    const share = julyTotal > 0 ? v.July / julyTotal : 0;
+    const chg = v.June > 0 ? (v.July - v.June) / v.June : null;
+    const contrib = totalChange !== 0 ? (v.July - v.June) / totalChange : null;
+    const flag = chg !== null && Math.abs(chg) >= 0.3 && Math.abs(v.July - v.June) >= 10;
+    return `<tr style="${flag?'background:'+(chg>=0?'var(--bg-success)':'var(--bg-danger)')+';':''}">
+      <td>${cat}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${v.May}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${v.June}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${v.July}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${(share*100).toFixed(1)}%</td>
+      <td style="text-align:right; font-family:var(--font-mono); ${chg!==null && chg<0 ? 'color:var(--text-danger);' : chg!==null && chg>0 ? 'color:var(--text-success);' : ''}">${fmtPct(chg)}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${contrib===null?'—':(contrib*100).toFixed(1)+'%'}</td>
+    </tr>`;
+  }).join('');
+
+  const labels = entries.map(e => e[0]);
+  if (chart) chart.destroy();
+  chart = new Chart(document.getElementById('catChart'), {
+    type: 'bar',
+    data: { labels,
+      datasets: [
+        { label:'May', data: entries.map(e=>e[1].May), backgroundColor:'#c3c2b7', borderRadius:3, maxBarThickness:16 },
+        { label:'June', data: entries.map(e=>e[1].June), backgroundColor:'#85b7eb', borderRadius:3, maxBarThickness:16 },
+        { label:'July', data: entries.map(e=>e[1].July), backgroundColor:'#2a78d6', borderRadius:3, maxBarThickness:16 }
+      ]
+    },
+    options: { responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false} },
+      scales:{ x:{ grid:{display:false}, ticks:{color:'#26251f', font:{size:11}, maxRotation:45, autoSkip:false} }, y:{ grid:{color:'#e1e0d9'}, ticks:{color:'#7a7970'} } }
+    }
+  });
+}
+
+document.getElementById('ch-sel').onchange = render;
+render();
+</script>
+</body>
+</html>

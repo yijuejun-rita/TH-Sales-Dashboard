@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>品类&SKU看板</title>
+<style>:root{
+  --bg:#faf9f5; --surface-1:#ffffff; --surface-2:#f2f1ea;
+  --text-primary:#26251f; --text-secondary:#7a7970; --text-muted:#a9a89d;
+  --border:#e1e0d9; --border-strong:#c3c2b7;
+  --text-danger:#c0392b; --bg-danger:#fbeaea;
+  --text-success:#1e7a1e; --bg-success:#eaf5ea;
+  --text-warning:#a9720b; --bg-warning:#fdf3df;
+  --accent:#2a78d6; --radius:12px;
+  --font-mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--text-primary); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased;}
+.page{max-width:960px; margin:0 auto; padding:32px 20px 64px;}
+.page h1{font-size:20px; font-weight:600; margin:0 0 4px;}
+.page .subtitle{font-size:13px; color:var(--text-secondary); margin:0 0 24px;}
+select, input[type=text]{border:1px solid var(--border-strong); border-radius:8px; padding:7px 10px; font-size:13px; background:var(--surface-1); color:var(--text-primary);}
+button{border:1px solid var(--border-strong); border-radius:8px; padding:7px 14px; font-size:13px; background:var(--surface-1); color:var(--text-primary); cursor:pointer;}
+button:hover{background:var(--surface-2);}
+table{width:100%; border-collapse:collapse; font-size:13px;}
+th{text-align:left; padding:8px 6px; color:var(--text-secondary); font-weight:500; border-bottom:1px solid var(--border);}
+td{padding:8px 6px; border-bottom:1px solid var(--border);}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
+
+.kpi-row{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:1.25rem;}
+.kpi{background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; flex:1; min-width:120px;}
+.kpi p:first-child{font-size:13px; color:var(--text-secondary); margin:0 0 4px;}
+.kpi p:last-child{font-size:22px; font-weight:600; margin:0;}
+.chart-box{background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; position:relative; height:320px; margin-bottom:1.25rem;}
+.table-wrap{overflow-x:auto; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:0.5rem 1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+<h1>品类与SKU销售看板</h1>
+<p class="subtitle">单位：PCS ｜ 口径：PCS｜July Closed；Konvy July使用June数据作为代理</p>
+
+<div style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin-bottom:1rem;">
+  <div>
+    <label style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">选择品类</label>
+    <select id="cat-sel" style="min-width:160px;"></select>
+  </div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi"><p>July销量</p><p id="kpi-july">1,387</p></div>
+  <div class="kpi"><p>占整体July销量</p><p id="kpi-share">66.2%</p></div>
+  <div class="kpi"><p>July vs June</p><p id="kpi-mom">+2.1%</p></div>
+  <div class="kpi"><p>销量增减（PCS）</p><p id="kpi-abs">+28</p></div>
+</div>
+
+<div class="chart-box"><canvas id="skuChart"></canvas></div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>SKU</th><th style="text-align:right;">May</th><th style="text-align:right;">June</th>
+      <th style="text-align:right;">July</th><th style="text-align:right;">MoM%</th>
+      <th style="text-align:right;">增长贡献</th><th>方向</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const SKU = [{"sku": "Red Chamber Wandering Multi-Purpose Stick #Approaching", "cat": "多用棒", "may": 1, "jun": 3, "jul": 3, "mom": 0, "abs": 0, "contrib": 0, "dir": "持平"}, {"sku": "Red Chamber Wandering Multi-Purpose Stick #Dancing", "cat": "多用棒", "may": 3, "jun": 9, "jul": 3, "mom": -0.6666666666666667, "abs": -6, "contrib": -0.06741573033707865, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp000Clear Leap", "cat": "多用粉", "may": 30, "jun": 23, "jul": 21, "mom": -0.08695652173913049, "abs": -2, "contrib": -0.02247191011235955, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp001Rock'S Breath", "cat": "多用粉", "may": 21, "jun": 8, "jul": 18, "mom": 1.25, "abs": 10, "contrib": 0.11235955056179775, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp300Veiled Dawn", "cat": "多用粉", "may": 46, "jun": 49, "jul": 47, "mom": -0.04081632653061229, "abs": -2, "contrib": -0.02247191011235955, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp301Resonance Unfolds", "cat": "多用粉", "may": 74, "jun": 154, "jul": 147, "mom": -0.045454545454545414, "abs": -7, "contrib": -0.07865168539325842, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp302Like A Lute", "cat": "多用粉", "may": 63, "jun": 86, "jul": 99, "mom": 0.15116279069767447, "abs": 13, "contrib": 0.14606741573033707, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp600Spring Awakens", "cat": "多用粉", "may": 35, "jun": 32, "jul": 31, "mom": -0.03125, "abs": -1, "contrib": -0.011235955056179775, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Moon’S Path", "cat": "多用粉", "may": 91, "jun": 96, "jul": 136, "mom": 0.41666666666666674, "abs": 40, "contrib": 0.449438202247191, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream Powder #Satin Rise", "cat": "多用粉", "may": 53, "jun": 46, "jul": 51, "mom": 0.10869565217391308, "abs": 5, "contrib": 0.056179775280898875, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream # C203Heyou", "cat": "多用膏", "may": 25, "jun": 29, "jul": 23, "mom": -0.2068965517241379, "abs": -6, "contrib": -0.06741573033707865, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #C102Jayin", "cat": "多用膏", "may": 62, "jun": 98, "jul": 90, "mom": -0.08163265306122447, "abs": -8, "contrib": -0.0898876404494382, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #C10Suin", "cat": "多用膏", "may": 80, "jun": 92, "jul": 103, "mom": 0.11956521739130443, "abs": 11, "contrib": 0.12359550561797752, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #C310Chuwen", "cat": "多用膏", "may": 22, "jun": 32, "jul": 38, "mom": 0.1875, "abs": 6, "contrib": 0.06741573033707865, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Chanyin", "cat": "多用膏", "may": 20, "jun": 28, "jul": 29, "mom": 0.03571428571428581, "abs": 1, "contrib": 0.011235955056179775, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Chumei", "cat": "多用膏", "may": 41, "jun": 46, "jul": 47, "mom": 0.021739130434782705, "abs": 1, "contrib": 0.011235955056179775, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Haelyn", "cat": "多用膏", "may": 171, "jun": 265, "jul": 303, "mom": 0.1433962264150943, "abs": 38, "contrib": 0.42696629213483145, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Jenchun", "cat": "多用膏", "may": 110, "jun": 177, "jul": 169, "mom": -0.04519774011299438, "abs": -8, "contrib": -0.0898876404494382, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Lekui", "cat": "多用膏", "may": 117, "jun": 194, "jul": 218, "mom": 0.12371134020618557, "abs": 24, "contrib": 0.2696629213483146, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Monsia", "cat": "多用膏", "may": 73, "jun": 171, "jul": 171, "mom": 0, "abs": 0, "contrib": 0, "dir": "持平"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Moon", "cat": "多用膏", "may": 90, "jun": 102, "jul": 89, "mom": -0.12745098039215685, "abs": -13, "contrib": -0.14606741573033707, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Nanmu", "cat": "多用膏", "may": 21, "jun": 21, "jul": 22, "mom": 0.04761904761904767, "abs": 1, "contrib": 0.011235955056179775, "dir": "增长"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Silkie", "cat": "多用膏", "may": 64, "jun": 79, "jul": 63, "mom": -0.20253164556962022, "abs": -16, "contrib": -0.1797752808988764, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Cream #Tengwei", "cat": "多用膏", "may": 28, "jun": 25, "jul": 22, "mom": -0.12, "abs": -3, "contrib": -0.033707865168539325, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Liquid #All-In", "cat": "多用液", "may": 13, "jun": 8, "jul": 7, "mom": -0.125, "abs": -1, "contrib": -0.011235955056179775, "dir": "下降"}, {"sku": "Red Chamber Haruki Multi-Purpose Liquid #Deep Talk", "cat": "多用液", "may": 1, "jun": 8, "jul": 7, "mom": -0.125, "abs": -1, "contrib": -0.011235955056179775, "dir": "下降"}, {"sku": "Red Chamber Wandering Flawless Compact Powder #C00", "cat": "粉饼", "may": 37, "jun": 31, "jul": 42, "mom": 0.35483870967741926, "abs": 11, "contrib": 0.12359550561797752, "dir": "增长"}, {"sku": "Red Chamber Haruki Tri-Color Multi-Purpose Highlighter #Snow Song", "cat": "高光盘", "may": 4, "jun": 5, "jul": 8, "mom": 0.6000000000000001, "abs": 3, "contrib": 0.033707865168539325, "dir": "增长"}, {"sku": "Red Chamber Haruki Dual Color Multi-Purpose Cream #Manchowarm/Ease", "cat": "双色多用盘", "may": 8, "jun": 14, "jul": 11, "mom": -0.2142857142857143, "abs": -3, "contrib": -0.033707865168539325, "dir": "下降"}, {"sku": "Red Chamber Wandering Dewy Multi-Purpose Stick #Clear Gleaming", "cat": "水光多用棒", "may": 8, "jun": 3, "jul": 5, "mom": 0.6666666666666667, "abs": 2, "contrib": 0.02247191011235955, "dir": "增长"}, {"sku": "Red Chamber Wandering Dewy Multi-Purpose Stick #Distant Muse", "cat": "水光多用棒", "may": 6, "jun": 5, "jul": 7, "mom": 0.3999999999999999, "abs": 2, "contrib": 0.02247191011235955, "dir": "增长"}, {"sku": "Red Chamber Wandering Dewy Multi-Purpose Stick #Lingering Reverie", "cat": "水光多用棒", "may": 6, "jun": 6, "jul": 9, "mom": 0.5, "abs": 3, "contrib": 0.033707865168539325, "dir": "增长"}, {"sku": "Red Chamber Wandering Dewy Multi-Purpose Stick #Quiet Turning", "cat": "水光多用棒", "may": 14, "jun": 6, "jul": 11, "mom": 0.8333333333333333, "abs": 5, "contrib": 0.056179775280898875, "dir": "增长"}, {"sku": "Red Chamber Wandering Dewy Multi-Purpose Stick #Spirited Leap", "cat": "水光多用棒", "may": 22, "jun": 14, "jul": 11, "mom": -0.2142857142857143, "abs": -3, "contrib": -0.033707865168539325, "dir": "下降"}, {"sku": "Red Chamber Wandering Dewy Multi-Purpose Stick #Tranquil Respite", "cat": "水光多用棒", "may": 3, "jun": 7, "jul": 5, "mom": -0.2857142857142857, "abs": -2, "contrib": -0.02247191011235955, "dir": "下降"}, {"sku": "Red Chamber Haruki Hydraglow Multi-Use Liquid #Gl400 Silent Whispers", "cat": "水光多用液", "may": 7, "jun": 5, "jul": 4, "mom": -0.19999999999999996, "abs": -1, "contrib": -0.011235955056179775, "dir": "下降"}, {"sku": "Red Chamber Haruki Hydraglow Multi-Use Liquid #Gl500Dream Path", "cat": "水光多用液", "may": 8, "jun": 7, "jul": 4, "mom": -0.4285714285714286, "abs": -3, "contrib": -0.033707865168539325, "dir": "下降"}, {"sku": "Red Chamber Haruki Serenity Contour Powder #Cp000", "cat": "修容盘", "may": 9, "jun": 22, "jul": 21, "mom": -0.045454545454545414, "abs": -1, "contrib": -0.011235955056179775, "dir": "下降"}];
+const OVERALL_JULY = 2094;
+const CATS = [...new Set(SKU.map(s => s.cat))];
+const sel = document.getElementById('cat-sel');
+sel.innerHTML = CATS.map(c => `<option value="${c}">${c}</option>`).join('');
+let chart;
+
+function fmtPct(p){ return p===null ? '—' : (p>=0?'+':'') + (p*100).toFixed(1) + '%'; }
+
+function render() {
+  const cat = sel.value;
+  const items = SKU.filter(s => s.cat === cat).sort((a,b) => b.jul - a.jul);
+  const julyTotal = items.reduce((s,i)=>s+i.jul,0);
+  const juneTotal = items.reduce((s,i)=>s+i.jun,0);
+  const absTotal = julyTotal - juneTotal;
+  const mom = juneTotal > 0 ? absTotal/juneTotal : null;
+
+  document.getElementById('kpi-july').textContent = julyTotal.toLocaleString();
+  document.getElementById('kpi-share').textContent = (julyTotal/OVERALL_JULY*100).toFixed(1) + '%';
+  document.getElementById('kpi-mom').textContent = fmtPct(mom);
+  document.getElementById('kpi-abs').textContent = (absTotal>=0?'+':'') + absTotal;
+
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = items.map(i => {
+    const dirColor = i.dir==='增长' ? 'var(--text-success)' : i.dir==='下降' ? 'var(--text-danger)' : 'var(--text-secondary)';
+    return `<tr>
+      <td style="max-width:260px;">${i.sku}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${i.may}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${i.jun}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${i.jul}</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:${dirColor};">${fmtPct(i.mom)}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${(i.contrib*100).toFixed(1)}%</td>
+      <td style="color:${dirColor};">${i.dir}</td>
+    </tr>`;
+  }).join('');
+
+  const sortedByContrib = items.slice().sort((a,b) => b.abs - a.abs);
+  const labels = sortedByContrib.map(i => i.sku.length > 28 ? i.sku.slice(0,26)+'…' : i.sku);
+  const values = sortedByContrib.map(i => i.abs);
+  const colors = sortedByContrib.map(i => i.abs > 0 ? '#1e7a1e' : i.abs < 0 ? '#c0392b' : '#c3c2b7');
+  if (chart) chart.destroy();
+  chart = new Chart(document.getElementById('skuChart'), {
+    type: 'bar',
+    data: { labels, datasets:[{ data:values, backgroundColor:colors, borderRadius:4, maxBarThickness:20 }] },
+    options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=> (c.raw>=0?'+':'')+c.raw+' PCS' } } },
+      scales:{ x:{ title:{display:true, text:'July vs June 变化（PCS）', color:'#7a7970', font:{size:12}}, grid:{color:'#e1e0d9'}, ticks:{color:'#7a7970'} }, y:{ grid:{display:false}, ticks:{color:'#26251f', font:{size:11}} } }
+    }
+  });
+}
+
+sel.onchange = render;
+sel.value = '多用膏';
+render();
+</script>
+</body>
+</html>
