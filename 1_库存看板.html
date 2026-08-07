@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>库存看板 | Thailand KA Inventory Dashboard</title>
+<style>:root{
+  --bg:#faf9f5; --surface-1:#ffffff; --surface-2:#f2f1ea;
+  --text-primary:#26251f; --text-secondary:#7a7970; --text-muted:#a9a89d;
+  --border:#e1e0d9; --border-strong:#c3c2b7;
+  --text-danger:#c0392b; --bg-danger:#fbeaea;
+  --text-success:#1e7a1e; --bg-success:#eaf5ea;
+  --text-warning:#a9720b; --bg-warning:#fdf3df;
+  --accent:#2a78d6; --radius:12px;
+  --font-mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--text-primary); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased;}
+.page{max-width:960px; margin:0 auto; padding:32px 20px 64px;}
+.page h1{font-size:20px; font-weight:600; margin:0 0 4px;}
+.page .subtitle{font-size:13px; color:var(--text-secondary); margin:0 0 24px;}
+select, input[type=text]{border:1px solid var(--border-strong); border-radius:8px; padding:7px 10px; font-size:13px; background:var(--surface-1); color:var(--text-primary);}
+button{border:1px solid var(--border-strong); border-radius:8px; padding:7px 14px; font-size:13px; background:var(--surface-1); color:var(--text-primary); cursor:pointer;}
+button:hover{background:var(--surface-2);}
+table{width:100%; border-collapse:collapse; font-size:13px;}
+th{text-align:left; padding:8px 6px; color:var(--text-secondary); font-weight:500; border-bottom:1px solid var(--border);}
+td{padding:8px 6px; border-bottom:1px solid var(--border);}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
+
+.kpi-row{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:1.25rem;}
+.kpi{background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; flex:1; min-width:120px;}
+.kpi p:first-child{font-size:13px; color:var(--text-secondary); margin:0 0 4px;}
+.kpi p:last-child{font-size:22px; font-weight:600; margin:0;}
+.chart-wrap{position:relative; height:320px; margin-bottom:1.25rem; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem;}
+.table-wrap{overflow-x:auto; margin-bottom:0.75rem; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:0.5rem 1rem;}
+.sku-panel{display:none; background:var(--surface-2); border-radius:12px; padding:1rem 1.25rem; margin-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+<h1>Thailand KA 库存看板 — Konnet Warehouse + Channel View</h1>
+<p class="subtitle">库存快照 2026-07-12 ｜ 销售周期 May–Jul 2026（13周）｜ WOI预警阈值 8周</p>
+
+<div style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin-bottom:1rem;">
+  <div>
+    <label style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">选择渠道</label>
+    <select id="channel-sel" style="min-width:160px;">
+      <option value="All Channels">All Channels</option>
+      <option value="Beautrium">Beautrium</option>
+      <option value="Eveandboy">Eveandboy</option>
+      <option value="Konvy">Konvy</option>
+      <option value="KIS">KIS</option>
+    </select>
+  </div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi"><p>总库存数量</p><p>29,817</p></div>
+  <div class="kpi"><p>Konnet大仓 WOI</p><p>70.2 周</p></div>
+  <div class="kpi"><p id="kpi-ch-label">所选渠道库存</p><p id="kpi-ch-stock">8,924</p></div>
+  <div class="kpi"><p id="kpi-woi-label">所选渠道 WOI</p><p id="kpi-ch-woi">30.0 周</p></div>
+  <div class="kpi"><p>低于8周SKU数</p><p id="kpi-low" style="color:var(--text-danger);">4</p></div>
+</div>
+
+<div class="chart-wrap"><canvas id="woiChart"></canvas></div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>品类</th><th style="text-align:right;">库存总数</th><th style="text-align:right;">Konnet库存</th>
+      <th style="text-align:right;">Konnet WOI</th><th style="text-align:right;" id="th-chstock">渠道库存</th>
+      <th style="text-align:right;" id="th-chwoi">渠道 WOI</th><th style="text-align:right;">低于8周SKU</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+</div>
+<p style="font-size:12px; color:var(--text-muted); margin:0 0 1.5rem;">点击品类行展开该品类的SKU明细</p>
+
+<div id="sku-panel" class="sku-panel">
+  <p style="font-size:14px; font-weight:600; margin:0 0 10px;" id="sku-title">SKU明细</p>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead>
+      <tr><th>SKU</th><th style="text-align:right;">Konnet库存</th><th style="text-align:right;">Konnet WOI</th>
+      <th style="text-align:right;" id="sku-th-stock">渠道库存</th><th style="text-align:right;" id="sku-th-woi">渠道 WOI</th></tr>
+    </thead>
+    <tbody id="sku-tbody"></tbody>
+  </table>
+  </div>
+</div>
+<p style="font-size:11px; color:var(--text-muted);">数据说明：所有库存KPI排除GWP。All Channels渠道WOI使用整体L3M SO；单渠道使用该渠道L3M SO。WOI = 库存 ÷（L3M SO ÷ 13周）。"渠道库存/低于8周SKU数"随上方渠道筛选变化，"库存总数"固定为Konnet+全部渠道之和。</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const SKU = [{"barcode": "6975025852054", "product": "Red Chamber Wandering Multi-Purpose Stick #Approaching", "cat": "多用棒", "konnetStock": 225, "konnetWOI": 487.5, "chStock": {"Beautrium": 63, "Eveandboy": 93, "Konvy": 32, "KIS": 16, "All Channels": 204}, "chSO": {"Beautrium": 2, "Eveandboy": 3, "Konvy": 1, "KIS": 0, "All Channels": 6}, "chWOI": {"Beautrium": 409.5, "Eveandboy": 403, "Konvy": 416, "KIS": null, "All Channels": 442}}, {"barcode": "6975025852436", "product": "Red Chamber Wandering Multi-Purpose Stick #Dancing", "cat": "多用棒", "konnetStock": 174, "konnetWOI": 161.57142857142858, "chStock": {"Beautrium": 54, "Eveandboy": 100, "Konvy": 31, "KIS": 19, "All Channels": 204}, "chSO": {"Beautrium": 12, "Eveandboy": 1, "Konvy": 1, "KIS": 0, "All Channels": 14}, "chWOI": {"Beautrium": 58.5, "Eveandboy": 1300, "Konvy": 403, "KIS": null, "All Channels": 189.42857142857142}}, {"barcode": "6975025854393", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp000Clear Leap", "cat": "多用粉", "konnetStock": 376, "konnetWOI": 70.84057971014492, "chStock": {"Beautrium": 55, "Eveandboy": 116, "Konvy": 33, "KIS": 33, "All Channels": 237}, "chSO": {"Beautrium": 27, "Eveandboy": 29, "Konvy": 5, "KIS": 8, "All Channels": 69}, "chWOI": {"Beautrium": 26.48148148148148, "Eveandboy": 52, "Konvy": 85.8, "KIS": 53.625, "All Channels": 44.65217391304348}}, {"barcode": "6975025854416", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp001Rock'S Breath", "cat": "多用粉", "konnetStock": 393, "konnetWOI": 116.11363636363636, "chStock": {"Beautrium": 67, "Eveandboy": 99, "Konvy": 33, "KIS": 37, "All Channels": 236}, "chSO": {"Beautrium": 19, "Eveandboy": 13, "Konvy": 3, "KIS": 9, "All Channels": 44}, "chWOI": {"Beautrium": 45.8421052631579, "Eveandboy": 99, "Konvy": 143, "KIS": 53.44444444444444, "All Channels": 69.72727272727273}}, {"barcode": "6975025854430", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp300Veiled Dawn", "cat": "多用粉", "konnetStock": 1721, "konnetWOI": 166.96268656716418, "chStock": {"Beautrium": 47, "Eveandboy": 146, "Konvy": 24, "KIS": 25, "All Channels": 242}, "chSO": {"Beautrium": 45, "Eveandboy": 64, "Konvy": 8, "KIS": 17, "All Channels": 134}, "chWOI": {"Beautrium": 13.577777777777778, "Eveandboy": 29.65625, "Konvy": 39, "KIS": 19.11764705882353, "All Channels": 23.47761194029851}}, {"barcode": "6975025854447", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp301Resonance Unfolds", "cat": "多用粉", "konnetStock": 910, "konnetWOI": 40.101694915254235, "chStock": {"Beautrium": 99, "Eveandboy": 165, "Konvy": 45, "KIS": 22, "All Channels": 331}, "chSO": {"Beautrium": 100, "Eveandboy": 98, "Konvy": 80, "KIS": 17, "All Channels": 295}, "chWOI": {"Beautrium": 12.87, "Eveandboy": 21.887755102040817, "Konvy": 7.3125, "KIS": 16.823529411764707, "All Channels": 14.586440677966102}}, {"barcode": "6975025854997", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp302Like A Lute", "cat": "多用粉", "konnetStock": 2349, "konnetWOI": 148.9609756097561, "chStock": {"Beautrium": 58, "Eveandboy": 131, "Konvy": 29, "KIS": 20, "All Channels": 238}, "chSO": {"Beautrium": 70, "Eveandboy": 76, "Konvy": 43, "KIS": 16, "All Channels": 205}, "chWOI": {"Beautrium": 10.771428571428572, "Eveandboy": 22.407894736842106, "Konvy": 8.767441860465116, "KIS": 16.25, "All Channels": 15.092682926829267}}, {"barcode": "6975025854409", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Cp600Spring Awakens", "cat": "多用粉", "konnetStock": 629, "konnetWOI": 97.3452380952381, "chStock": {"Beautrium": 58, "Eveandboy": 104, "Konvy": 22, "KIS": 28, "All Channels": 212}, "chSO": {"Beautrium": 33, "Eveandboy": 23, "Konvy": 14, "KIS": 14, "All Channels": 84}, "chWOI": {"Beautrium": 22.848484848484848, "Eveandboy": 58.78260869565217, "Konvy": 20.428571428571427, "KIS": 26, "All Channels": 32.80952380952381}}, {"barcode": "6975025855390", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Moon’S Path", "cat": "多用粉", "konnetStock": 1588, "konnetWOI": 74.52707581227436, "chStock": {"Beautrium": 71, "Eveandboy": 97, "Konvy": 53, "KIS": 21, "All Channels": 242}, "chSO": {"Beautrium": 128, "Eveandboy": 94, "Konvy": 46, "KIS": 9, "All Channels": 277}, "chWOI": {"Beautrium": 7.2109375, "Eveandboy": 13.414893617021276, "Konvy": 14.978260869565217, "KIS": 30.333333333333332, "All Channels": 11.35740072202166}}, {"barcode": "6975025855406", "product": "Red Chamber Haruki Multi-Purpose Cream Powder #Satin Rise", "cat": "多用粉", "konnetStock": 923, "konnetWOI": 93.01550387596899, "chStock": {"Beautrium": 65, "Eveandboy": 131, "Konvy": 34, "KIS": 36, "All Channels": 266}, "chSO": {"Beautrium": 59, "Eveandboy": 42, "Konvy": 21, "KIS": 7, "All Channels": 129}, "chWOI": {"Beautrium": 14.322033898305085, "Eveandboy": 40.54761904761905, "Konvy": 21.047619047619047, "KIS": 66.85714285714286, "All Channels": 26.8062015503876}}, {"barcode": "6975025855376", "product": "Red Chamber Haruki Multi-Purpose Cream # C203Heyou", "cat": "多用膏", "konnetStock": 197, "konnetWOI": 38.803030303030305, "chStock": {"Beautrium": 55, "Eveandboy": 122, "Konvy": 31, "KIS": 39, "All Channels": 247}, "chSO": {"Beautrium": 20, "Eveandboy": 30, "Konvy": 11, "KIS": 5, "All Channels": 66}, "chWOI": {"Beautrium": 35.75, "Eveandboy": 52.86666666666667, "Konvy": 36.63636363636363, "KIS": 101.4, "All Channels": 48.65151515151515}}, {"barcode": "6975025856014", "product": "Red Chamber Haruki Multi-Purpose Cream #C102Jayin", "cat": "多用膏", "konnetStock": 1032, "konnetWOI": 69.51295336787565, "chStock": {"Beautrium": 107, "Eveandboy": 126, "Konvy": 22, "KIS": 36, "All Channels": 291}, "chSO": {"Beautrium": 98, "Eveandboy": 33, "Konvy": 57, "KIS": 5, "All Channels": 193}, "chWOI": {"Beautrium": 14.193877551020408, "Eveandboy": 49.63636363636363, "Konvy": 5.017543859649122, "KIS": 93.6, "All Channels": 19.60103626943005}}, {"barcode": "6975025855383", "product": "Red Chamber Haruki Multi-Purpose Cream #C10Suin", "cat": "多用膏", "konnetStock": 4, "konnetWOI": 0.22127659574468084, "chStock": {"Beautrium": 65, "Eveandboy": 65, "Konvy": 14, "KIS": 31, "All Channels": 175}, "chSO": {"Beautrium": 125, "Eveandboy": 63, "Konvy": 40, "KIS": 7, "All Channels": 235}, "chWOI": {"Beautrium": 6.76, "Eveandboy": 13.412698412698413, "Konvy": 4.55, "KIS": 57.57142857142857, "All Channels": 9.680851063829786}}, {"barcode": "6975025856007", "product": "Red Chamber Haruki Multi-Purpose Cream #C310Chuwen", "cat": "多用膏", "konnetStock": 360, "konnetWOI": 55.05882352941177, "chStock": {"Beautrium": 78, "Eveandboy": 103, "Konvy": 22, "KIS": 40, "All Channels": 243}, "chSO": {"Beautrium": 54, "Eveandboy": 19, "Konvy": 7, "KIS": 5, "All Channels": 85}, "chWOI": {"Beautrium": 18.77777777777778, "Eveandboy": 70.47368421052632, "Konvy": 40.857142857142854, "KIS": 104, "All Channels": 37.16470588235294}}, {"barcode": "6975025850180", "product": "Red Chamber Haruki Multi-Purpose Cream #Chanyin", "cat": "多用膏", "konnetStock": 162, "konnetWOI": 32.90625, "chStock": {"Beautrium": 43, "Eveandboy": 99, "Konvy": 23, "KIS": 25, "All Channels": 190}, "chSO": {"Beautrium": 32, "Eveandboy": 15, "Konvy": 13, "KIS": 4, "All Channels": 64}, "chWOI": {"Beautrium": 17.46875, "Eveandboy": 85.8, "Konvy": 23, "KIS": 81.25, "All Channels": 38.59375}}, {"barcode": "6975559370079", "product": "Red Chamber Haruki Multi-Purpose Cream #Chumei", "cat": "多用膏", "konnetStock": 1835, "konnetWOI": 202.16101694915255, "chStock": {"Beautrium": 77, "Eveandboy": 102, "Konvy": 36, "KIS": 30, "All Channels": 245}, "chSO": {"Beautrium": 48, "Eveandboy": 42, "Konvy": 16, "KIS": 12, "All Channels": 118}, "chWOI": {"Beautrium": 20.854166666666668, "Eveandboy": 31.571428571428573, "Konvy": 29.25, "KIS": 32.5, "All Channels": 26.991525423728813}}, {"barcode": "6975025855352", "product": "Red Chamber Haruki Multi-Purpose Cream #Haelyn", "cat": "多用膏", "konnetStock": 308, "konnetWOI": 6.844444444444444, "chStock": {"Beautrium": 154, "Eveandboy": 192, "Konvy": 121, "KIS": 22, "All Channels": 489}, "chSO": {"Beautrium": 207, "Eveandboy": 201, "Konvy": 154, "KIS": 23, "All Channels": 585}, "chWOI": {"Beautrium": 9.671497584541063, "Eveandboy": 12.417910447761194, "Konvy": 10.214285714285714, "KIS": 12.434782608695652, "All Channels": 10.866666666666667}}, {"barcode": "6975025854355", "product": "Red Chamber Haruki Multi-Purpose Cream #Jenchun", "cat": "多用膏", "konnetStock": 646, "konnetWOI": 21.869791666666668, "chStock": {"Beautrium": 122, "Eveandboy": 129, "Konvy": 47, "KIS": 12, "All Channels": 310}, "chSO": {"Beautrium": 173, "Eveandboy": 118, "Konvy": 72, "KIS": 21, "All Channels": 384}, "chWOI": {"Beautrium": 9.167630057803468, "Eveandboy": 14.211864406779661, "Konvy": 8.48611111111111, "KIS": 7.428571428571429, "All Channels": 10.494791666666666}}, {"barcode": "6975559370369", "product": "Red Chamber Haruki Multi-Purpose Cream #Lekui", "cat": "多用膏", "konnetStock": 147, "konnetWOI": 4.55, "chStock": {"Beautrium": 99, "Eveandboy": 119, "Konvy": 57, "KIS": 21, "All Channels": 296}, "chSO": {"Beautrium": 158, "Eveandboy": 134, "Konvy": 109, "KIS": 19, "All Channels": 420}, "chWOI": {"Beautrium": 8.145569620253164, "Eveandboy": 11.544776119402986, "Konvy": 6.798165137614679, "KIS": 14.368421052631579, "All Channels": 9.161904761904761}}, {"barcode": "6975025850173", "product": "Red Chamber Haruki Multi-Purpose Cream #Monsia", "cat": "多用膏", "konnetStock": 567, "konnetWOI": 23.034375, "chStock": {"Beautrium": 106, "Eveandboy": 149, "Konvy": 20, "KIS": 14, "All Channels": 289}, "chSO": {"Beautrium": 116, "Eveandboy": 94, "Konvy": 95, "KIS": 15, "All Channels": 320}, "chWOI": {"Beautrium": 11.879310344827585, "Eveandboy": 20.606382978723403, "Konvy": 2.736842105263158, "KIS": 12.133333333333333, "All Channels": 11.740625}}, {"barcode": "6975559370550", "product": "Red Chamber Haruki Multi-Purpose Cream #Moon", "cat": "多用膏", "konnetStock": 1051, "konnetWOI": 58.388888888888886, "chStock": {"Beautrium": 100, "Eveandboy": 158, "Konvy": 35, "KIS": 22, "All Channels": 315}, "chSO": {"Beautrium": 89, "Eveandboy": 76, "Konvy": 47, "KIS": 22, "All Channels": 234}, "chWOI": {"Beautrium": 14.606741573033707, "Eveandboy": 27.026315789473685, "Konvy": 9.680851063829786, "KIS": 13, "All Channels": 17.5}}, {"barcode": "6975559370055", "product": "Red Chamber Haruki Multi-Purpose Cream #Nanmu", "cat": "多用膏", "konnetStock": 225, "konnetWOI": 51.31578947368421, "chStock": {"Beautrium": 53, "Eveandboy": 103, "Konvy": 25, "KIS": 41, "All Channels": 222}, "chSO": {"Beautrium": 25, "Eveandboy": 20, "Konvy": 7, "KIS": 5, "All Channels": 57}, "chWOI": {"Beautrium": 27.56, "Eveandboy": 66.95, "Konvy": 46.42857142857143, "KIS": 106.6, "All Channels": 50.63157894736842}}, {"barcode": "6975559370086", "product": "Red Chamber Haruki Multi-Purpose Cream #Silkie", "cat": "多用膏", "konnetStock": 321, "konnetWOI": 22.928571428571427, "chStock": {"Beautrium": 59, "Eveandboy": 44, "Konvy": 36, "KIS": 30, "All Channels": 169}, "chSO": {"Beautrium": 71, "Eveandboy": 70, "Konvy": 24, "KIS": 17, "All Channels": 182}, "chWOI": {"Beautrium": 10.80281690140845, "Eveandboy": 8.17142857142857, "Konvy": 19.5, "KIS": 22.941176470588236, "All Channels": 12.071428571428571}}, {"barcode": "6975559370192", "product": "Red Chamber Haruki Multi-Purpose Cream #Tengwei", "cat": "多用膏", "konnetStock": 473, "konnetWOI": 90.42647058823529, "chStock": {"Beautrium": 61, "Eveandboy": 118, "Konvy": 23, "KIS": 41, "All Channels": 243}, "chSO": {"Beautrium": 29, "Eveandboy": 28, "Konvy": 7, "KIS": 4, "All Channels": 68}, "chWOI": {"Beautrium": 27.344827586206897, "Eveandboy": 54.785714285714285, "Konvy": 42.714285714285715, "KIS": 133.25, "All Channels": 46.455882352941174}}, {"barcode": "6975025852719", "product": "Red Chamber Haruki Multi-Purpose Liquid #All-In", "cat": "多用液", "konnetStock": 297, "konnetWOI": 154.44, "chStock": {"Beautrium": 51, "Eveandboy": 101, "Konvy": 28, "KIS": 21, "All Channels": 201}, "chSO": {"Beautrium": 14, "Eveandboy": 4, "Konvy": 3, "KIS": 4, "All Channels": 25}, "chWOI": {"Beautrium": 47.357142857142854, "Eveandboy": 328.25, "Konvy": 121.33333333333333, "KIS": 68.25, "All Channels": 104.52}}, {"barcode": "6975025855055", "product": "Red Chamber Haruki Multi-Purpose Liquid #Deep Talk", "cat": "多用液", "konnetStock": 169, "konnetWOI": 183.08333333333334, "chStock": {"Beautrium": 68, "Eveandboy": 94, "Konvy": 55, "KIS": 21, "All Channels": 238}, "chSO": {"Beautrium": 4, "Eveandboy": 4, "Konvy": 4, "KIS": 0, "All Channels": 12}, "chWOI": {"Beautrium": 221, "Eveandboy": 305.5, "Konvy": 178.75, "KIS": null, "All Channels": 257.8333333333333}}, {"barcode": "6953710824456", "product": "Red Chamber Wandering Flawless Compact Powder #C00", "cat": "粉饼", "konnetStock": 841, "konnetWOI": 110.43434343434343, "chStock": {"Beautrium": 57, "Eveandboy": 102, "Konvy": 21, "KIS": 12, "All Channels": 192}, "chSO": {"Beautrium": 39, "Eveandboy": 38, "Konvy": 11, "KIS": 11, "All Channels": 99}, "chWOI": {"Beautrium": 19, "Eveandboy": 34.89473684210526, "Konvy": 24.818181818181817, "KIS": 14.181818181818182, "All Channels": 25.21212121212121}}, {"barcode": "6975025852931", "product": "Red Chamber Haruki Tri-Color Multi-Purpose Highlighter #Snow Song", "cat": "高光盘", "konnetStock": 405, "konnetWOI": 405, "chStock": {"Beautrium": 56, "Eveandboy": 85, "Konvy": 23, "KIS": 22, "All Channels": 186}, "chSO": {"Beautrium": 3, "Eveandboy": 1, "Konvy": 4, "KIS": 5, "All Channels": 13}, "chWOI": {"Beautrium": 242.66666666666666, "Eveandboy": 1105, "Konvy": 74.75, "KIS": 57.2, "All Channels": 186}}, {"barcode": "6975025852283", "product": "Red Chamber Haruki Dual Color Multi-Purpose Cream #Manchowarm/Ease", "cat": "双色多用盘", "konnetStock": 522, "konnetWOI": 251.33333333333334, "chStock": {"Beautrium": 64, "Eveandboy": 91, "Konvy": 29, "KIS": 30, "All Channels": 214}, "chSO": {"Beautrium": 12, "Eveandboy": 4, "Konvy": 6, "KIS": 5, "All Channels": 27}, "chWOI": {"Beautrium": 69.33333333333333, "Eveandboy": 295.75, "Konvy": 62.833333333333336, "KIS": 78, "All Channels": 103.03703703703704}}, {"barcode": "6975025855314", "product": "Red Chamber Wandering Dewy Multi-Purpose Stick #Clear Gleaming", "cat": "水光多用棒", "konnetStock": 159, "konnetWOI": 129.1875, "chStock": {"Beautrium": 60, "Eveandboy": 94, "Konvy": 32, "KIS": 13, "All Channels": 199}, "chSO": {"Beautrium": 4, "Eveandboy": 8, "Konvy": 0, "KIS": 4, "All Channels": 16}, "chWOI": {"Beautrium": 195, "Eveandboy": 152.75, "Konvy": null, "KIS": 42.25, "All Channels": 161.6875}}, {"barcode": "6975025854478", "product": "Red Chamber Wandering Dewy Multi-Purpose Stick #Distant Muse", "cat": "水光多用棒", "konnetStock": 209, "konnetWOI": 169.8125, "chStock": {"Beautrium": 55, "Eveandboy": 93, "Konvy": 30, "KIS": 16, "All Channels": 194}, "chSO": {"Beautrium": 7, "Eveandboy": 5, "Konvy": 2, "KIS": 2, "All Channels": 16}, "chWOI": {"Beautrium": 102.14285714285714, "Eveandboy": 241.8, "Konvy": 195, "KIS": 104, "All Channels": 157.625}}, {"barcode": "6975025854454", "product": "Red Chamber Wandering Dewy Multi-Purpose Stick #Lingering Reverie", "cat": "水光多用棒", "konnetStock": 308, "konnetWOI": 210.73684210526315, "chStock": {"Beautrium": 51, "Eveandboy": 96, "Konvy": 34, "KIS": 15, "All Channels": 196}, "chSO": {"Beautrium": 13, "Eveandboy": 2, "Konvy": 2, "KIS": 2, "All Channels": 19}, "chWOI": {"Beautrium": 51, "Eveandboy": 624, "Konvy": 221, "KIS": 97.5, "All Channels": 134.10526315789474}}, {"barcode": "6975025855321", "product": "Red Chamber Wandering Dewy Multi-Purpose Stick #Quiet Turning", "cat": "水光多用棒", "konnetStock": 188, "konnetWOI": 81.46666666666667, "chStock": {"Beautrium": 60, "Eveandboy": 100, "Konvy": 34, "KIS": 13, "All Channels": 207}, "chSO": {"Beautrium": 7, "Eveandboy": 17, "Konvy": 1, "KIS": 5, "All Channels": 30}, "chWOI": {"Beautrium": 111.42857142857143, "Eveandboy": 76.47058823529412, "Konvy": 442, "KIS": 33.8, "All Channels": 89.7}}, {"barcode": "6975025854461", "product": "Red Chamber Wandering Dewy Multi-Purpose Stick #Spirited Leap", "cat": "水光多用棒", "konnetStock": 269, "konnetWOI": 79.47727272727273, "chStock": {"Beautrium": 60, "Eveandboy": 100, "Konvy": 31, "KIS": 10, "All Channels": 201}, "chSO": {"Beautrium": 25, "Eveandboy": 8, "Konvy": 3, "KIS": 8, "All Channels": 44}, "chWOI": {"Beautrium": 31.2, "Eveandboy": 162.5, "Konvy": 134.33333333333334, "KIS": 16.25, "All Channels": 59.38636363636363}}, {"barcode": "6975025854485", "product": "Red Chamber Wandering Dewy Multi-Purpose Stick #Tranquil Respite", "cat": "水光多用棒", "konnetStock": 182, "konnetWOI": 169, "chStock": {"Beautrium": 56, "Eveandboy": 138, "Konvy": 32, "KIS": 18, "All Channels": 244}, "chSO": {"Beautrium": 8, "Eveandboy": 3, "Konvy": 1, "KIS": 2, "All Channels": 14}, "chWOI": {"Beautrium": 91, "Eveandboy": 598, "Konvy": 416, "KIS": 117, "All Channels": 226.57142857142858}}, {"barcode": "6975025854898", "product": "Red Chamber Haruki Hydraglow Multi-Use Liquid #Gl400 Silent Whispers", "cat": "水光多用液", "konnetStock": 117, "konnetWOI": 108.64285714285714, "chStock": {"Beautrium": 60, "Eveandboy": 94, "Konvy": 33, "KIS": 23, "All Channels": 210}, "chSO": {"Beautrium": 8, "Eveandboy": 2, "Konvy": 2, "KIS": 2, "All Channels": 14}, "chWOI": {"Beautrium": 97.5, "Eveandboy": 611, "Konvy": 214.5, "KIS": 149.5, "All Channels": 195}}, {"barcode": "6975025854904", "product": "Red Chamber Haruki Hydraglow Multi-Use Liquid #Gl500Dream Path", "cat": "水光多用液", "konnetStock": 4, "konnetWOI": 2.888888888888889, "chStock": {"Beautrium": 43, "Eveandboy": 49, "Konvy": 4, "KIS": 6, "All Channels": 102}, "chSO": {"Beautrium": 8, "Eveandboy": 9, "Konvy": 1, "KIS": 0, "All Channels": 18}, "chWOI": {"Beautrium": 69.875, "Eveandboy": 70.77777777777777, "Konvy": 52, "KIS": null, "All Channels": 73.66666666666667}}, {"barcode": "6975025854959", "product": "Red Chamber Haruki Serenity Contour Powder #Cp000", "cat": "修容盘", "konnetStock": 607, "konnetWOI": 207.6578947368421, "chStock": {"Beautrium": 60, "Eveandboy": 96, "Konvy": 27, "KIS": 21, "All Channels": 204}, "chSO": {"Beautrium": 17, "Eveandboy": 5, "Konvy": 14, "KIS": 2, "All Channels": 38}, "chWOI": {"Beautrium": 45.88235294117647, "Eveandboy": 249.6, "Konvy": 25.071428571428573, "KIS": 136.5, "All Channels": 69.78947368421052}}];
+const KONNET_AGG = {
+  '多用膏': {total:11052, wh:7328, whWOI:44.45356976201587},
+  '多用粉': {total:10893, wh:8889, whWOI:103.45299910474485},
+  '多用棒': {total:807, wh:399, whWOI:76.27941176470588},
+  '水光多用棒': {total:2556, wh:1315, whWOI:55.145161290322584},
+  '多用液': {total:905, wh:466, whWOI:189.3125},
+  '水光多用液': {total:433, wh:121, whWOI:null},
+  '粉饼': {total:1033, wh:841, whWOI:127.12790697674419},
+  '修容盘': {total:811, wh:607, whWOI:102.48051948051948},
+  '双色多用盘': {total:736, wh:522, whWOI:308.45454545454544},
+  '高光盘': {total:591, wh:405, whWOI:329.0625}
+};
+const CATS = Object.keys(KONNET_AGG);
+const THRESHOLD = 8;
+let channel = 'All Channels';
+let openCat = null;
+let chart;
+
+function fmt(n){ return n===null||n===undefined ? '—' : Math.round(n).toLocaleString(); }
+function fmt1(n){ return n===null||n===undefined ? '—' : n.toFixed(1); }
+
+function catAgg(cat, ch) {
+  const skus = SKU.filter(s => s.cat === cat);
+  const stock = skus.reduce((a,s) => a + (s.chStock[ch]||0), 0);
+  const so = skus.reduce((a,s) => a + (s.chSO[ch]||0), 0);
+  const woi = so > 0 ? stock/(so/13) : null;
+  const low = skus.filter(s => s.chWOI[ch]!==null && s.chWOI[ch]!==undefined && s.chWOI[ch] < THRESHOLD).length;
+  return {stock, woi, low};
+}
+
+function render() {
+  const chLabel = channel === 'All Channels' ? '所选渠道' : channel;
+  document.getElementById('kpi-ch-label').textContent = chLabel + '库存';
+  document.getElementById('kpi-woi-label').textContent = chLabel + ' WOI';
+  document.getElementById('th-chstock').textContent = chLabel + '库存';
+  document.getElementById('th-chwoi').textContent = chLabel + ' WOI';
+
+  let totalChStock = 0, totalLow = 0;
+  const catRows = CATS.map(cat => {
+    const a = catAgg(cat, channel);
+    totalChStock += a.stock;
+    totalLow += a.low;
+    return {cat, ...KONNET_AGG[cat], chStock:a.stock, chWOI:a.woi, low:a.low};
+  });
+  const allSO = SKU.reduce((s,r)=> s+(r.chSO[channel]||0), 0);
+  const overallChWOI = allSO>0 ? totalChStock/(allSO/13) : null;
+
+  document.getElementById('kpi-ch-stock').textContent = fmt(totalChStock);
+  document.getElementById('kpi-ch-woi').textContent = fmt1(overallChWOI) + ' 周';
+  document.getElementById('kpi-low').textContent = totalLow;
+
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = catRows.map(r => {
+    const risky = r.low > 0;
+    return `<tr data-cat="${r.cat}" style="cursor:pointer;${risky?'background:var(--bg-danger);':''}${openCat===r.cat?'outline:1px solid var(--border-strong);':''}">
+      <td>${r.cat}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${fmt(r.total)}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${fmt(r.wh)}</td>
+      <td style="text-align:right; font-family:var(--font-mono); ${r.whWOI!==null && r.whWOI<THRESHOLD?'color:var(--text-danger); font-weight:600;':''}">${fmt1(r.whWOI)}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${fmt(r.chStock)}</td>
+      <td style="text-align:right; font-family:var(--font-mono); ${r.chWOI!==null && r.chWOI<THRESHOLD?'color:var(--text-danger); font-weight:600;':''}">${fmt1(r.chWOI)}</td>
+      <td style="text-align:right; font-family:var(--font-mono); ${risky?'color:var(--text-danger); font-weight:600;':''}">${r.low}</td>
+    </tr>`;
+  }).join('');
+  tbody.querySelectorAll('tr').forEach(tr => {
+    tr.onclick = () => { openCat = openCat === tr.dataset.cat ? null : tr.dataset.cat; render(); };
+  });
+
+  if (openCat) {
+    document.getElementById('sku-panel').style.display = '';
+    document.getElementById('sku-title').textContent = openCat + ' — SKU明细';
+    document.getElementById('sku-th-stock').textContent = chLabel + '库存';
+    document.getElementById('sku-th-woi').textContent = chLabel + ' WOI';
+    const skus = SKU.filter(s => s.cat === openCat);
+    document.getElementById('sku-tbody').innerHTML = skus.map(s => {
+      const w = s.chWOI[channel];
+      const bad = w!==null && w!==undefined && w < THRESHOLD;
+      return `<tr style="${bad?'background:var(--bg-danger);':''}">
+        <td style="max-width:260px;">${s.product}</td>
+        <td style="text-align:right; font-family:var(--font-mono);">${fmt(s.konnetStock)}</td>
+        <td style="text-align:right; font-family:var(--font-mono); ${s.konnetWOI!==null && s.konnetWOI<THRESHOLD?'color:var(--text-danger); font-weight:600;':''}">${fmt1(s.konnetWOI)}</td>
+        <td style="text-align:right; font-family:var(--font-mono);">${fmt(s.chStock[channel])}</td>
+        <td style="text-align:right; font-family:var(--font-mono); ${bad?'color:var(--text-danger); font-weight:600;':''}">${fmt1(w)}</td>
+      </tr>`;
+    }).join('');
+  } else {
+    document.getElementById('sku-panel').style.display = 'none';
+  }
+
+  const sorted = catRows.slice().sort((a,b) => (a.chWOI ?? 0) - (b.chWOI ?? 0));
+  const labels = sorted.map(r => r.cat);
+  const values = sorted.map(r => r.chWOI ?? 0);
+  const colors = sorted.map(r => (r.chWOI===null || r.chWOI<THRESHOLD) ? '#c0392b' : '#2a78d6');
+  if (chart) chart.destroy();
+  chart = new Chart(document.getElementById('woiChart'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4, maxBarThickness: 22 }] },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => 'WOI: ' + c.raw.toFixed(1) + ' 周' } } },
+      scales: {
+        x: { title: { display: true, text: chLabel + ' WOI（周）', color:'#7a7970', font:{size:12} }, grid:{color:'#e1e0d9'}, ticks:{color:'#7a7970'} },
+        y: { grid:{display:false}, ticks:{color:'#26251f', font:{size:12}} }
+      }
+    },
+    plugins: [{
+      id: 'th', afterDraw: (c) => {
+        const x = c.scales.x.getPixelForValue(THRESHOLD);
+        const ctx = c.ctx;
+        ctx.save(); ctx.strokeStyle = '#a9720b'; ctx.setLineDash([4,4]); ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(x, c.chartArea.top); ctx.lineTo(x, c.chartArea.bottom); ctx.stroke();
+        ctx.restore();
+      }
+    }]
+  });
+}
+
+document.getElementById('channel-sel').onchange = (e) => { channel = e.target.value; openCat = null; render(); };
+render();
+</script>
+</body>
+</html>

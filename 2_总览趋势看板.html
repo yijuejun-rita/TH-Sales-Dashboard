@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>总览趋势看板 | May–July 2026 Sales Review</title>
+<style>:root{
+  --bg:#faf9f5; --surface-1:#ffffff; --surface-2:#f2f1ea;
+  --text-primary:#26251f; --text-secondary:#7a7970; --text-muted:#a9a89d;
+  --border:#e1e0d9; --border-strong:#c3c2b7;
+  --text-danger:#c0392b; --bg-danger:#fbeaea;
+  --text-success:#1e7a1e; --bg-success:#eaf5ea;
+  --text-warning:#a9720b; --bg-warning:#fdf3df;
+  --accent:#2a78d6; --radius:12px;
+  --font-mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--text-primary); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased;}
+.page{max-width:960px; margin:0 auto; padding:32px 20px 64px;}
+.page h1{font-size:20px; font-weight:600; margin:0 0 4px;}
+.page .subtitle{font-size:13px; color:var(--text-secondary); margin:0 0 24px;}
+select, input[type=text]{border:1px solid var(--border-strong); border-radius:8px; padding:7px 10px; font-size:13px; background:var(--surface-1); color:var(--text-primary);}
+button{border:1px solid var(--border-strong); border-radius:8px; padding:7px 14px; font-size:13px; background:var(--surface-1); color:var(--text-primary); cursor:pointer;}
+button:hover{background:var(--surface-2);}
+table{width:100%; border-collapse:collapse; font-size:13px;}
+th{text-align:left; padding:8px 6px; color:var(--text-secondary); font-weight:500; border-bottom:1px solid var(--border);}
+td{padding:8px 6px; border-bottom:1px solid var(--border);}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
+
+.kpi-row{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:1.25rem;}
+.kpi{background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; flex:1; min-width:130px;}
+.kpi p:first-child{font-size:13px; color:var(--text-secondary); margin:0 0 4px;}
+.kpi p:last-child{font-size:22px; font-weight:600; margin:0;}
+.chart-box{background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; position:relative;}
+.table-wrap{overflow-x:auto; margin-bottom:1.5rem; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius); padding:0.5rem 1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+<h1>Thailand KA 五月至七月销售总览看板</h1>
+<p class="subtitle">数据周期：May–July 2026</p>
+
+<div class="kpi-row">
+  <div class="kpi"><p>7月整体销售额</p><p>฿1,577,143</p></div>
+  <div class="kpi"><p>7月 vs 6月</p><p style="color:var(--text-success);">+40.6%</p></div>
+  <div class="kpi"><p>7月 vs 5–6月均值</p><p style="color:var(--text-success);">+37.2%</p></div>
+  <div class="kpi"><p>5–7月累计销售额</p><p>฿3,876,799</p></div>
+</div>
+
+<div class="chart-box" style="height:240px; margin-bottom:1.5rem;"><canvas id="trendChart"></canvas></div>
+
+<div style="display:flex; gap:6px; margin-bottom:1rem;">
+  <button id="btn-channel">按渠道</button>
+  <button id="btn-cat">按品类</button>
+</div>
+
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:1.5rem;">
+  <div>
+    <p style="font-size:13px; color:var(--text-secondary); margin:0 0 8px;" id="chart1-label">7月销售额（THB）</p>
+    <div class="chart-box" style="height:260px;"><canvas id="julyChart"></canvas></div>
+  </div>
+  <div>
+    <p style="font-size:13px; color:var(--text-secondary); margin:0 0 8px;" id="chart2-label">7月 vs 6月 变化幅度</p>
+    <div class="chart-box" style="height:260px;"><canvas id="changeChart"></canvas></div>
+  </div>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>层级</th><th>对象</th><th style="text-align:right;">7月</th>
+      <th style="text-align:right;">vs 6月</th><th style="text-align:right;">vs 前两月均值</th><th>预警原因</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:var(--bg-warning);">
+      <td>Overall</td><td>Total Sales</td><td style="text-align:right; font-family:var(--font-mono);">฿1,577,143</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-success);">+40.6%</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-success);">+37.2%</td>
+      <td style="font-size:12px;">整体销售较6月及前两月均值均超过+30%</td>
+    </tr>
+    <tr style="background:var(--bg-warning);">
+      <td>Channel</td><td>Konvy</td><td style="text-align:right; font-family:var(--font-mono);">฿799,267</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-success);">+55.6%</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-success);">+77.6%</td>
+      <td style="font-size:12px;">渠道销售较6月及前两月均值均超过+30%</td>
+    </tr>
+    <tr style="background:var(--bg-warning);">
+      <td>Category</td><td>多用膏</td><td style="text-align:right; font-family:var(--font-mono);">811 PCS</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-success);">+98.8%</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-success);">+21.8%</td>
+      <td style="font-size:12px;">品类销量较6月接近翻倍，绝对增量最大</td>
+    </tr>
+    <tr style="background:var(--bg-danger);">
+      <td>Category</td><td>水光多用棒</td><td style="text-align:right; font-family:var(--font-mono);">50 PCS</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-danger);">-75.1%</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-danger);">-61.5%</td>
+      <td style="font-size:12px;">品类销量较6月下降超过70%</td>
+    </tr>
+    <tr style="background:var(--bg-danger);">
+      <td>Category</td><td>多用棒</td><td style="text-align:right; font-family:var(--font-mono);">5 PCS</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-danger);">-91.5%</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-danger);">-84.1%</td>
+      <td style="font-size:12px;">品类销量较6月及前两月均值下降超过80%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const overall = {May:1177815, June:1121841, July:1577143};
+const channels = {
+  Konvy: {May:386217, June:513700, July:799267},
+  Beautrium: {May:396999, June:316610, July:397855},
+  Eveandboy: {May:283132, June:255415, July:328341},
+  KIS: {May:111467, June:36116, July:51680}
+};
+const cats = {
+  '多用膏': {May:924, June:408, July:811},
+  '多用粉': {May:413, June:318, July:386},
+  '水光多用棒': {May:59, June:201, July:50},
+  '粉饼': {May:37, June:10, July:39},
+  '多用液': {May:14, June:9, July:9},
+  '修容盘': {May:9, June:59, July:9},
+  '双色多用盘': {May:8, June:7, July:7},
+  '高光盘': {May:4, June:6, July:6},
+  '多用棒': {May:4, June:59, July:5},
+  '水光多用液': {May:0, June:0, July:0}
+};
+let dim = 'channel';
+let trendChart, julyChart, changeChart;
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: { labels:['May','June','July'], datasets:[{ data:[overall.May, overall.June, overall.July], borderColor:'#2a78d6', backgroundColor:'rgba(42,120,214,0.1)', fill:true, tension:0.3, pointRadius:4, pointBackgroundColor:'#2a78d6' }] },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>'฿'+c.raw.toLocaleString() } } },
+    scales:{ x:{ grid:{display:false}, ticks:{color:'#26251f'} }, y:{ grid:{color:'#e1e0d9'}, ticks:{ color:'#7a7970', callback:v=>'฿'+(v/1000)+'k' } } }
+  }
+});
+
+function render() {
+  const data = dim === 'channel' ? channels : cats;
+  const unit = dim === 'channel' ? '฿' : ' PCS';
+  document.getElementById('chart1-label').textContent = dim === 'channel' ? '7月销售额（THB）' : '7月销量（PCS）';
+  document.getElementById('chart2-label').textContent = dim === 'channel' ? '渠道 vs 6月 变化幅度' : '品类 vs 6月 变化幅度';
+
+  const entries = Object.entries(data).sort((a,b) => b[1].July - a[1].July);
+  const labels = entries.map(e => e[0]);
+  const julyVals = entries.map(e => e[1].July);
+  const changePct = entries.map(e => e[1].June > 0 ? (e[1].July - e[1].June) / e[1].June : null);
+
+  if (julyChart) julyChart.destroy();
+  julyChart = new Chart(document.getElementById('julyChart'), {
+    type: 'bar',
+    data: { labels, datasets:[{ data:julyVals, backgroundColor:'#2a78d6', borderRadius:4, maxBarThickness:28 }] },
+    options: { responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=> unit==='฿' ? '฿'+c.raw.toLocaleString() : c.raw+unit } } },
+      scales:{ x:{ grid:{display:false}, ticks:{color:'#26251f', font:{size:11}} }, y:{ grid:{color:'#e1e0d9'}, ticks:{color:'#7a7970'} } }
+    }
+  });
+
+  if (changeChart) changeChart.destroy();
+  changeChart = new Chart(document.getElementById('changeChart'), {
+    type: 'bar',
+    data: { labels, datasets:[{ data:changePct.map(p=>p===null?0:p*100), backgroundColor: changePct.map(p => p===null ? '#c3c2b7' : (p>=0.3 ? '#1e7a1e' : p<=-0.3 ? '#c0392b' : '#a9720b')), borderRadius:4, maxBarThickness:28 }] },
+    options: { responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=> c.raw.toFixed(1)+'%' } } },
+      scales:{ x:{ grid:{display:false}, ticks:{color:'#26251f', font:{size:11}} }, y:{ grid:{color:'#e1e0d9'}, ticks:{ color:'#7a7970', callback:v=>v+'%' } } }
+    }
+  });
+}
+
+document.getElementById('btn-channel').onclick = () => { dim='channel'; render(); };
+document.getElementById('btn-cat').onclick = () => { dim='cat'; render(); };
+render();
+</script>
+</body>
+</html>
