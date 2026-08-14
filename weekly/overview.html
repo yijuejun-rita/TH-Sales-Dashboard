@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Sales Overview | Thailand KA Sales</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+<div class="page">
+  <div id="nav"></div>
+  <h1>Weekly Sales Overview</h1>
+  <p class="subtitle">整体周度销量、KPI、趋势与自动结论 &middot; 整体/渠道/门店单位 THB，品类/SKU单位 PCS &middot; 业务周 Monday–Sunday (Asia/Bangkok)</p>
+  <div id="syncStatus" class="sync-status"></div>
+
+  <div class="filter-bar" id="filterBar">
+    <div class="filter-group">
+      <label for="weekSel">Week</label>
+      <select id="weekSel"></select>
+    </div>
+    <div class="filter-group">
+      <label for="channelSel">Channel</label>
+      <select id="channelSel"></select>
+    </div>
+    <div class="filter-group">
+      <label for="categorySel">Category</label>
+      <select id="categorySel"></select>
+    </div>
+  </div>
+
+  <div id="scopeNote"></div>
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <div class="chart-card">
+    <p class="chart-title">Weekly Total Sales Trend</p>
+    <p class="chart-subtitle" id="trendSubtitle"></p>
+    <div class="chart-canvas-wrap"><canvas id="trendChart"></canvas></div>
+  </div>
+
+  <h2 class="section-title">Weekly Key Findings</h2>
+  <ul class="findings-list" id="findingsList"></ul>
+
+  <p class="footer-note" id="footerNote"></p>
+</div>
+<script src="common.js"></script>
+<script src="overview.js"></script>
+</body>
+</html>
