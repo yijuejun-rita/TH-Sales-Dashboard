@@ -1,0 +1,13 @@
+{
+  "channel_sheets": [
+    "Beautrium",
+    "Eveandboy",
+    "Konvy",
+    "KIS"
+  ],
+  "store_sheet": "店铺销量",
+  "sku_total_sheet": "SKU销量",
+  "last_detected_at": "2026-08-14T07:07:50.412030+00:00",
+  "detection_warnings": [],
+  "note": "Recorded automatically by etl/build_json.py on every sync run. Sheets are re-classified by header structure each run; this file is a cache/audit trail, not a hard-coded requirement -- renaming a sheet or reordering sheets does not break the sync."
+}

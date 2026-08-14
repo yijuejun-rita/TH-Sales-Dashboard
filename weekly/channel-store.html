@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Channel & Store Performance | Thailand KA Sales</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+<div class="page">
+  <div id="nav"></div>
+  <h1>Channel & Store Performance</h1>
+  <p class="subtitle">渠道与门店销量表现（店铺销量口径）&middot; 单位 THB</p>
+  <div id="syncStatus" class="sync-status"></div>
+
+  <div class="filter-bar" id="filterBar">
+    <div class="filter-group">
+      <label for="weekSel">Week</label>
+      <select id="weekSel"></select>
+    </div>
+  </div>
+
+  <h2 class="section-title">渠道表现</h2>
+  <div class="table-wrap"><table id="channelTable"><thead></thead><tbody></tbody></table></div>
+
+  <div class="chart-card">
+    <p class="chart-title">Channel Weekly Sales (sorted)</p>
+    <p class="chart-subtitle">横向条形图 &middot; 从高到低排序 &middot; 单位 THB</p>
+    <div class="chart-canvas-wrap short"><canvas id="channelBarChart"></canvas></div>
+  </div>
+
+  <h2 class="section-title">渠道到门店下钻</h2>
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label for="drillChannelSel">Channel</label>
+      <select id="drillChannelSel"></select>
+    </div>
+    <div class="filter-group">
+      <input type="text" id="storeSearch" class="search-input" placeholder="搜索门店名称...">
+    </div>
+    <div class="pill-toggle" id="sortToggle">
+      <button data-sort="sales" class="active">本周销量</button>
+      <button data-sort="growth">Top 增长</button>
+      <button data-sort="decline">Top 下降</button>
+    </div>
+  </div>
+  <div class="table-wrap"><table id="storeTable"><thead></thead><tbody></tbody></table></div>
+
+  <h2 class="section-title">门店预警</h2>
+  <div id="storeAlerts" class="dq-panel"></div>
+
+  <h2 class="section-title">数据质量 Data Quality</h2>
+  <div id="dqPanel" class="dq-panel"></div>
+
+  <p class="footer-note" id="footerNote"></p>
+</div>
+<script src="common.js"></script>
+<script src="channel-store.js"></script>
+</body>
+</html>
