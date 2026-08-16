@@ -120,7 +120,7 @@
     if (!last16.length) {
       return;
     }
-    const labels = last16.map((w) => `${w.month}/${w.week_idx}`);
+    const labels = last16.map((w) => `${w.month}月W${w.week_idx}`);
     const values = last16.map((w) => {
       const v = seriesValue(seriesObj, w.week_key);
       return v === null ? null : Math.round(v);
