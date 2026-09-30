@@ -48,8 +48,24 @@ CONTROL_SKU_DELTA = {
     'suin': 7,
 }
 
+# August comparison (weekly-average pace basis: total / weeks-in-period),
+# manually verified against the source workbook in chat with the user before
+# build_august_comparison.py existed. Kept here purely as a regression check.
+CONTROL_AUG_CHANNEL_TOTAL = {'Beautrium': 496236, 'Eveandboy': 268704, 'KIS': 110292, 'Konvy': 748026}
+CONTROL_AUG_OVERALL_TOTAL = 1623258
+CONTROL_AUG_3CH_PCS_TOTAL = 1633
+CONTROL_PACE_CHANGE_PCT = {
+    'overall': -0.256,
+    'Beautrium': -0.267, 'Eveandboy': -0.060, 'KIS': -0.694, 'Konvy': -0.255,
+    '3channel_pcs': -0.257,
+}
+CONTROL_CATEGORY_PACE_CHANGE_PCT = {
+    '多用膏': -0.263, '多用粉': -0.318, '水光多用棒': -0.394,
+}
+
 EPS_THB = 1.0
 EPS_PCS = 0.5
+EPS_PCT = 0.01  # 1 percentage point
 
 failures = []
 checks_run = 0
@@ -126,6 +142,33 @@ def main():
         failures.append('Konvy channel key leaked into SKU output (must be Beautrium/Eveandboy/KIS only)')
     if 'Total' in {s['store'] for s in sv['stores']}:
         failures.append('A row literally named "Total" leaked into per-store output -- Total-row double count risk')
+
+    # -------- August comparison (data/september/august_comparison.json) --------
+    aug_path = os.path.join(OUT_DIR, 'august_comparison.json')
+    if os.path.isfile(aug_path):
+        ac = load('august_comparison.json')
+        check('august.overall.aug_total', ac['overall']['aug_total'], CONTROL_AUG_OVERALL_TOTAL, EPS_THB)
+        check('august.overall.weekly_pace_change_pct', ac['overall']['weekly_pace_change_pct'], CONTROL_PACE_CHANGE_PCT['overall'], EPS_PCT)
+        for ch, exp_total in CONTROL_AUG_CHANNEL_TOTAL.items():
+            check(f'august.channel.{ch}.aug_total', ac['channels'][ch]['aug_total'], exp_total, EPS_THB)
+            check(f'august.channel.{ch}.weekly_pace_change_pct', ac['channels'][ch]['weekly_pace_change_pct'], CONTROL_PACE_CHANGE_PCT[ch], EPS_PCT)
+        check('august.total_3channel.aug_total', ac['total_3channel']['aug_total'], CONTROL_AUG_3CH_PCS_TOTAL, EPS_PCS)
+        check('august.total_3channel.weekly_pace_change_pct', ac['total_3channel']['weekly_pace_change_pct'], CONTROL_PACE_CHANGE_PCT['3channel_pcs'], EPS_PCT)
+        cat_by_name = {c['category']: c for c in ac['categories']}
+        for cat, exp_chg in CONTROL_CATEGORY_PACE_CHANGE_PCT.items():
+            if cat not in cat_by_name:
+                failures.append(f'august category "{cat}" missing from august_comparison.json')
+                continue
+            check(f'august.category.{cat}.weekly_pace_change_pct', cat_by_name[cat]['weekly_pace_change_pct'], exp_chg, EPS_PCT)
+        for row in ac['skus']:
+            for k in ('aug_total', 'sep_total', 'aug_weekly_pace', 'sep_weekly_pace'):
+                v = row[k]
+                if v is not None and (v != v or v in (float('inf'), float('-inf'))):
+                    failures.append(f'august SKU {row["name"]} has NaN/Infinity in {k}')
+        if any('Konvy' in r.get('by_channel_w3', {}) for r in ac['skus'] if isinstance(r, dict)):
+            failures.append('Konvy leaked into august_comparison.json SKU rows')
+    else:
+        failures.append('data/september/august_comparison.json not found -- run build_august_comparison.py')
 
     print(f'{checks_run} control-total checks run.')
     if failures:
