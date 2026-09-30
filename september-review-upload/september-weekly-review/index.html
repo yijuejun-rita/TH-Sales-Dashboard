@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive Overview | September 2026 Weekly Sales Review</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+<div class="page">
+  <div id="nav"></div>
+  <h1>September 2026 Weekly Sales Review</h1>
+  <p class="subtitle">Executive Overview &middot; 整体/渠道 单位 <b>THB</b>（来源：店铺销量渠道 Total 行）&middot; 业务周标签 Sep W1 / Sep W2 / Sep W3（原表无具体起止日期）</p>
+  <div id="scopeBanner"></div>
+
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <div class="chart-card">
+    <p class="chart-title">September Weekly Sales Trend</p>
+    <p class="chart-subtitle" id="trendSubtitle">口径：店铺销量渠道 Total 行汇总 &middot; 单位 THB &middot; W3 高亮 &middot; 虚线为 W1–W2 平均参考线 &middot; 无面积填充 / 无曲线平滑 / 单一坐标轴</p>
+    <div class="chart-canvas-wrap"><canvas id="trendChart"></canvas></div>
+  </div>
+
+  <h2 class="section-title">渠道概览（Sep W3）</h2>
+  <p class="section-desc" style="font-size:12.5px;color:var(--text-secondary);margin:0 0 12px;">单位 THB &middot; 按 W3 销量从高到低排序</p>
+  <div class="table-wrap"><table id="channelTable"><thead></thead><tbody></tbody></table></div>
+
+  <div class="chart-card">
+    <p class="chart-title">Channel Sep W3 Sales (sorted)</p>
+    <p class="chart-subtitle">横向条形图 &middot; 单位 THB</p>
+    <div class="chart-canvas-wrap short"><canvas id="channelBarChart"></canvas></div>
+  </div>
+
+  <h2 class="section-title">Weekly Key Findings</h2>
+  <ul class="findings-list" id="findingsList"></ul>
+
+  <p class="footer-note" id="footerNote"></p>
+</div>
+<script src="common.js"></script>
+<script src="executive-overview.js"></script>
+</body>
+</html>

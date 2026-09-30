@@ -1,0 +1,1028 @@
+{
+  "meta": {
+    "generated_at": "2026-09-30T03:35:27Z",
+    "review_scope": "September Weeks 1–3 | Month Not Closed",
+    "source_file_name": "Thailand Sales Data (3).xlsx",
+    "unit": "PCS",
+    "coverage": "SKU coverage: Beautrium, Eveandboy and KIS only; Konvy September SKU data unavailable.",
+    "source": "Beautrium + Eveandboy + KIS weekly QTY columns"
+  },
+  "skus": [
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #moon’s path cp303 2g moon’s path",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Moon’s Path CP303 2g Moon’s Path",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855390"
+      ],
+      "w1": 14.0,
+      "w2": 7.0,
+      "w3": 20.0,
+      "cum": 41.0,
+      "w3_vs_w2_abs": 13.0,
+      "w3_vs_w2_pct": 1.8571428571428572,
+      "by_channel_change": {
+        "Beautrium": 6.0,
+        "Eveandboy": 5.0,
+        "KIS": 2.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 11.0,
+        "Eveandboy": 7.0,
+        "KIS": 2.0
+      },
+      "contribution_to_category_change": 0.30952380952380953
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #satin rise cp002 2g satin rise",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Satin Rise CP002 2g Satin Rise",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855406"
+      ],
+      "w1": 9.0,
+      "w2": 4.0,
+      "w3": 15.0,
+      "cum": 28.0,
+      "w3_vs_w2_abs": 11.0,
+      "w3_vs_w2_pct": 2.75,
+      "by_channel_change": {
+        "Beautrium": 7.0,
+        "Eveandboy": 3.0,
+        "KIS": 1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 7.0,
+        "Eveandboy": 6.0,
+        "KIS": 2.0
+      },
+      "contribution_to_category_change": 0.2619047619047619
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#moon 1.5g moon c304",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Moon 1.5g Moon C304",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975559370550"
+      ],
+      "w1": 9.0,
+      "w2": 15.0,
+      "w3": 6.0,
+      "cum": 30.0,
+      "w3_vs_w2_abs": -9.0,
+      "w3_vs_w2_pct": -0.6,
+      "by_channel_change": {
+        "Beautrium": -5.0,
+        "Eveandboy": -4.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 4.0,
+        "Eveandboy": 2.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 1.125
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#jenchun 1.5g jenchun c403",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Jenchun 1.5g Jenchun C403",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854355"
+      ],
+      "w1": 19.0,
+      "w2": 25.0,
+      "w3": 17.0,
+      "cum": 61.0,
+      "w3_vs_w2_abs": -8.0,
+      "w3_vs_w2_pct": -0.31999999999999995,
+      "by_channel_change": {
+        "Beautrium": -3.0,
+        "Eveandboy": -6.0,
+        "KIS": 1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 11.0,
+        "Eveandboy": 5.0,
+        "KIS": 1.0
+      },
+      "contribution_to_category_change": 1.0
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #veiled dawn cp300 2g cp300veiled dawn",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Veiled Dawn CP300 2g CP300Veiled Dawn",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855628"
+      ],
+      "w1": 7.0,
+      "w2": 5.0,
+      "w3": 12.0,
+      "cum": 24.0,
+      "w3_vs_w2_abs": 7.0,
+      "w3_vs_w2_pct": 1.4,
+      "by_channel_change": {
+        "Beautrium": 4.0,
+        "Eveandboy": 4.0,
+        "KIS": -1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 6.0,
+        "Eveandboy": 5.0,
+        "KIS": 1.0
+      },
+      "contribution_to_category_change": 0.16666666666666666
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#suin c101 1.5g c101suin",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Suin C101 1.5g C101Suin",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855383"
+      ],
+      "w1": 4.0,
+      "w2": 0,
+      "w3": 7.0,
+      "cum": 11.0,
+      "w3_vs_w2_abs": 7.0,
+      "w3_vs_w2_pct": null,
+      "by_channel_change": {
+        "Beautrium": 4.0,
+        "Eveandboy": 3.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 4.0,
+        "Eveandboy": 3.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.875
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#nanmu 1.5g nanmu c001",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Nanmu 1.5g Nanmu C001",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975559370055"
+      ],
+      "w1": 1.0,
+      "w2": 0,
+      "w3": 6.0,
+      "cum": 7.0,
+      "w3_vs_w2_abs": 6.0,
+      "w3_vs_w2_pct": null,
+      "by_channel_change": {
+        "Beautrium": 2.0,
+        "Eveandboy": 4.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 4.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.75
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #resonance unfolds cp301 2g cp301resonance unfolds",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Resonance Unfolds CP301 2g CP301Resonance Unfolds",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855635"
+      ],
+      "w1": 12.0,
+      "w2": 12.0,
+      "w3": 18.0,
+      "cum": 42.0,
+      "w3_vs_w2_abs": 6.0,
+      "w3_vs_w2_pct": 0.5,
+      "by_channel_change": {
+        "Beautrium": 5.0,
+        "Eveandboy": 3.0,
+        "KIS": -2.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 11.0,
+        "Eveandboy": 7.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.14285714285714285
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#silkie 1.5g silkie c402",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Silkie 1.5g Silkie C402",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975559370086"
+      ],
+      "w1": 10.0,
+      "w2": 16.0,
+      "w3": 10.0,
+      "cum": 36.0,
+      "w3_vs_w2_abs": -6.0,
+      "w3_vs_w2_pct": -0.375,
+      "by_channel_change": {
+        "Beautrium": -3.0,
+        "Eveandboy": -1.0,
+        "KIS": -2.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 10.0,
+        "Eveandboy": 0.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.75
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #clear leap cp000 2g cp000clear leap",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Clear Leap CP000 2g CP000Clear Leap",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854393"
+      ],
+      "w1": 3.0,
+      "w2": 1.0,
+      "w3": 6.0,
+      "cum": 10.0,
+      "w3_vs_w2_abs": 5.0,
+      "w3_vs_w2_pct": 5.0,
+      "by_channel_change": {
+        "Beautrium": 0.0,
+        "Eveandboy": 5.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 1.0,
+        "Eveandboy": 5.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.11904761904761904
+    },
+    {
+      "sku_key": "red chamber haruki hydraglow multi-use liquid #silent whispers gl400 3 g gl400 silent whispers",
+      "name": "RED CHAMBER HARUKI HydraGlow Multi-Use Liquid #Silent Whispers GL400 3 g GL400 Silent Whispers",
+      "category": "水光多用液",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854898"
+      ],
+      "w1": 1.0,
+      "w2": 1.0,
+      "w3": 6.0,
+      "cum": 8.0,
+      "w3_vs_w2_abs": 5.0,
+      "w3_vs_w2_pct": 5.0,
+      "by_channel_change": {
+        "Beautrium": 4.0,
+        "Eveandboy": 1.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 5.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.5555555555555556
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick spirited leap ds300 3.5 g spirited leap",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Spirited Leap DS300 3.5 g Spirited Leap",
+      "category": "水光多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854461"
+      ],
+      "w1": 4.0,
+      "w2": 1.0,
+      "w3": 5.0,
+      "cum": 10.0,
+      "w3_vs_w2_abs": 4.0,
+      "w3_vs_w2_pct": 4.0,
+      "by_channel_change": {
+        "Beautrium": 3.0,
+        "Eveandboy": 1.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 4.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.6666666666666666
+    },
+    {
+      "sku_key": "red chamber haruki hydraglow multi-use liquid #dream's path gl500 3 g gl500dream path",
+      "name": "RED CHAMBER HARUKI HydraGlow Multi-Use Liquid #Dream's Path GL500 3 g GL500Dream Path",
+      "category": "水光多用液",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854904"
+      ],
+      "w1": 0,
+      "w2": 0,
+      "w3": 4.0,
+      "cum": 4.0,
+      "w3_vs_w2_abs": 4.0,
+      "w3_vs_w2_pct": null,
+      "by_channel_change": {
+        "Beautrium": 4.0,
+        "Eveandboy": 0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 4.0,
+        "Eveandboy": 0.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.4444444444444444
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose liquid#deep talk l100",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Liquid#Deep Talk L100",
+      "category": "多用液",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855642"
+      ],
+      "w1": 2.0,
+      "w2": 5.0,
+      "w3": 9.0,
+      "cum": 16.0,
+      "w3_vs_w2_abs": 4.0,
+      "w3_vs_w2_pct": 0.8,
+      "by_channel_change": {
+        "Beautrium": 2.0,
+        "Eveandboy": 2.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 5.0,
+        "Eveandboy": 4.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.8
+    },
+    {
+      "sku_key": "red chamber wandering flawless compact powder c00 7.5 g c00",
+      "name": "RED CHAMBER WANDERING Flawless Compact Powder C00 7.5 g C00",
+      "category": "粉饼",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6953710824456"
+      ],
+      "w1": 9.0,
+      "w2": 5.0,
+      "w3": 9.0,
+      "cum": 23.0,
+      "w3_vs_w2_abs": 4.0,
+      "w3_vs_w2_pct": 0.8,
+      "by_channel_change": {
+        "Beautrium": -1.0,
+        "Eveandboy": 6.0,
+        "KIS": -1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 7.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 1.0
+    },
+    {
+      "sku_key": "red chamber haruki tri-color multi-purpose highlighter#snow song 3.8g+1.9g+1.8g snow song",
+      "name": "RED CHAMBER HARUKI Tri-Color Multi-Purpose Highlighter#Snow Song 3.8g+1.9g+1.8g Snow Song",
+      "category": "高光盘",
+      "category_source": "Eveandboy sheet",
+      "barcodes": [
+        "6975025852931"
+      ],
+      "w1": 1.0,
+      "w2": 4.0,
+      "w3": 1.0,
+      "cum": 6.0,
+      "w3_vs_w2_abs": -3.0,
+      "w3_vs_w2_pct": -0.75,
+      "by_channel_change": {
+        "Beautrium": -1.0,
+        "Eveandboy": -1.0,
+        "KIS": -1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 1.0,
+        "Eveandboy": 0.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 1.0
+    },
+    {
+      "sku_key": "red chamber wandering multi-purpose stick approaching 4.8 g approaching",
+      "name": "RED CHAMBER WANDERING Multi-Purpose Stick Approaching 4.8 g Approaching",
+      "category": "多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025852054",
+        "6975025856625"
+      ],
+      "w1": 0,
+      "w2": 0,
+      "w3": 3.0,
+      "cum": 3.0,
+      "w3_vs_w2_abs": 3.0,
+      "w3_vs_w2_pct": null,
+      "by_channel_change": {
+        "Beautrium": 2.0,
+        "Eveandboy": 1.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 1.0
+    },
+    {
+      "sku_key": "red chamber haruki dual color multi-purpose cream #mancho 2 g mancho",
+      "name": "RED CHAMBER HARUKI Dual Color Multi-Purpose Cream #Mancho 2 g Mancho",
+      "category": "双色多用盘",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025852283"
+      ],
+      "w1": 7.0,
+      "w2": 3.0,
+      "w3": 0,
+      "cum": 10.0,
+      "w3_vs_w2_abs": -3.0,
+      "w3_vs_w2_pct": -1.0,
+      "by_channel_change": {
+        "Beautrium": -1.0,
+        "Eveandboy": -2.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 0.0,
+        "Eveandboy": 0.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 1.0
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#monsia 1.5g monsia c303",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Monsia 1.5g Monsia C303",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025850173"
+      ],
+      "w1": 12.0,
+      "w2": 17.0,
+      "w3": 14.0,
+      "cum": 43.0,
+      "w3_vs_w2_abs": -3.0,
+      "w3_vs_w2_pct": -0.17647058823529416,
+      "by_channel_change": {
+        "Beautrium": -1.0,
+        "Eveandboy": -1.0,
+        "KIS": -1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 10.0,
+        "Eveandboy": 3.0,
+        "KIS": 1.0
+      },
+      "contribution_to_category_change": 0.375
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#tengwei 1.5g tengwei",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Tengwei 1.5g Tengwei",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975559370192"
+      ],
+      "w1": 8.0,
+      "w2": 5.0,
+      "w3": 7.0,
+      "cum": 20.0,
+      "w3_vs_w2_abs": 2.0,
+      "w3_vs_w2_pct": 0.3999999999999999,
+      "by_channel_change": {
+        "Beautrium": 1.0,
+        "Eveandboy": 1.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 4.0,
+        "Eveandboy": 3.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.25
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick tranquil respite ds100 3.5 g tranquil respite",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Tranquil Respite DS100 3.5 g Tranquil Respite",
+      "category": "水光多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854485"
+      ],
+      "w1": 2.0,
+      "w2": 0,
+      "w3": 2.0,
+      "cum": 4.0,
+      "w3_vs_w2_abs": 2.0,
+      "w3_vs_w2_pct": null,
+      "by_channel_change": {
+        "Beautrium": 1.0,
+        "Eveandboy": 1.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 1.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.3333333333333333
+    },
+    {
+      "sku_key": "red chamber haruki serenity contour powder #cp000 8 g cp000",
+      "name": "RED CHAMBER HARUKI Serenity Contour Powder #CP000 8 g CP000",
+      "category": "修容盘",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854959"
+      ],
+      "w1": 0,
+      "w2": 3.0,
+      "w3": 5.0,
+      "cum": 8.0,
+      "w3_vs_w2_abs": 2.0,
+      "w3_vs_w2_pct": 0.6666666666666667,
+      "by_channel_change": {
+        "Beautrium": 2.0,
+        "Eveandboy": 0.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 4.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 1.0
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick lingering reverie ds500 3.5 g lingering reverie",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Lingering Reverie DS500 3.5 g Lingering Reverie",
+      "category": "水光多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854454"
+      ],
+      "w1": 0,
+      "w2": 3.0,
+      "w3": 1.0,
+      "cum": 4.0,
+      "w3_vs_w2_abs": -2.0,
+      "w3_vs_w2_pct": -0.6666666666666667,
+      "by_channel_change": {
+        "Beautrium": 0.0,
+        "Eveandboy": -2.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 1.0,
+        "Eveandboy": 0.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.3333333333333333
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick distant muse ds200 3.5 g distant muse",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Distant Muse DS200 3.5 g Distant Muse",
+      "category": "水光多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855581"
+      ],
+      "w1": 1.0,
+      "w2": 1.0,
+      "w3": 3.0,
+      "cum": 5.0,
+      "w3_vs_w2_abs": 2.0,
+      "w3_vs_w2_pct": 2.0,
+      "by_channel_change": {
+        "Beautrium": 0.0,
+        "Eveandboy": 2.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 1.0,
+        "Eveandboy": 2.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.3333333333333333
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #spring awakens cp600 2g cp600spring awakens",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Spring Awakens CP600 2g CP600Spring Awakens",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854409"
+      ],
+      "w1": 9.0,
+      "w2": 8.0,
+      "w3": 6.0,
+      "cum": 23.0,
+      "w3_vs_w2_abs": -2.0,
+      "w3_vs_w2_pct": -0.25,
+      "by_channel_change": {
+        "Beautrium": -1.0,
+        "Eveandboy": -1.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 4.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.047619047619047616
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #rock's breath cp001 2g cp001rock's breath",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Rock's Breath CP001 2g CP001Rock's Breath",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854416"
+      ],
+      "w1": 3.0,
+      "w2": 5.0,
+      "w3": 6.0,
+      "cum": 14.0,
+      "w3_vs_w2_abs": 1.0,
+      "w3_vs_w2_pct": 0.19999999999999996,
+      "by_channel_change": {
+        "Beautrium": -3.0,
+        "Eveandboy": 3.0,
+        "KIS": 1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 3.0,
+        "KIS": 1.0
+      },
+      "contribution_to_category_change": 0.023809523809523808
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose liquid#all-in 3 g all-in l303",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Liquid#All-in 3 g All-in L303",
+      "category": "多用液",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025852719"
+      ],
+      "w1": 1.0,
+      "w2": 3.0,
+      "w3": 4.0,
+      "cum": 8.0,
+      "w3_vs_w2_abs": 1.0,
+      "w3_vs_w2_pct": 0.33333333333333326,
+      "by_channel_change": {
+        "Beautrium": 1.0,
+        "Eveandboy": 0.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 3.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.2
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#chanyin 1.5g chanyin c307",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Chanyin 1.5g Chanyin C307",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025850180"
+      ],
+      "w1": 3.0,
+      "w2": 3.0,
+      "w3": 4.0,
+      "cum": 10.0,
+      "w3_vs_w2_abs": 1.0,
+      "w3_vs_w2_pct": 0.33333333333333326,
+      "by_channel_change": {
+        "Beautrium": 1.0,
+        "Eveandboy": 0.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 2.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.125
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream #chuwen c310 1.5g c310chuwen",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream #Chuwen C310 1.5g C310Chuwen",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025856007"
+      ],
+      "w1": 11.0,
+      "w2": 7.0,
+      "w3": 6.0,
+      "cum": 24.0,
+      "w3_vs_w2_abs": -1.0,
+      "w3_vs_w2_pct": -0.1428571428571429,
+      "by_channel_change": {
+        "Beautrium": -2.0,
+        "Eveandboy": 0.0,
+        "KIS": 1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 3.0,
+        "Eveandboy": 1.0,
+        "KIS": 2.0
+      },
+      "contribution_to_category_change": 0.125
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream #jayin c102 1.5g c102jayin",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream #Jayin C102 1.5g C102Jayin",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025856014",
+        "6975025857097"
+      ],
+      "w1": 16.0,
+      "w2": 14.0,
+      "w3": 15.0,
+      "cum": 45.0,
+      "w3_vs_w2_abs": 1.0,
+      "w3_vs_w2_pct": 0.0714285714285714,
+      "by_channel_change": {
+        "Beautrium": 2.0,
+        "Eveandboy": 0.0,
+        "KIS": -1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 13.0,
+        "Eveandboy": 2.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.125
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #like a lute cp302 2g cp302like a lute",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Like a Lute CP302 2g CP302Like a Lute",
+      "category": "多用粉",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025854997"
+      ],
+      "w1": 13.0,
+      "w2": 7.0,
+      "w3": 8.0,
+      "cum": 28.0,
+      "w3_vs_w2_abs": 1.0,
+      "w3_vs_w2_pct": 0.1428571428571428,
+      "by_channel_change": {
+        "Beautrium": 0.0,
+        "Eveandboy": 0.0,
+        "KIS": 1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 5.0,
+        "Eveandboy": 2.0,
+        "KIS": 1.0
+      },
+      "contribution_to_category_change": 0.023809523809523808
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#haelyn c309 1.5g haelyn",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Haelyn C309 1.5g Haelyn",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855352"
+      ],
+      "w1": 10.0,
+      "w2": 12.0,
+      "w3": 13.0,
+      "cum": 35.0,
+      "w3_vs_w2_abs": 1.0,
+      "w3_vs_w2_pct": 0.08333333333333326,
+      "by_channel_change": {
+        "Beautrium": 5.0,
+        "Eveandboy": -2.0,
+        "KIS": -2.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 7.0,
+        "Eveandboy": 6.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.125
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#lekui 1.5g lekui c401",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Lekui 1.5g Lekui C401",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975559370369"
+      ],
+      "w1": 14.0,
+      "w2": 9.0,
+      "w3": 10.0,
+      "cum": 33.0,
+      "w3_vs_w2_abs": 1.0,
+      "w3_vs_w2_pct": 0.11111111111111116,
+      "by_channel_change": {
+        "Beautrium": 1.0,
+        "Eveandboy": 0.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 8.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.125
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose liquid#deep talk l100 3 g deep talk",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Liquid#Deep Talk L100 3 g Deep Talk",
+      "category": "多用液",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855055"
+      ],
+      "w1": 0,
+      "w2": 0,
+      "w3": 0,
+      "cum": 0,
+      "w3_vs_w2_abs": 0,
+      "w3_vs_w2_pct": null,
+      "by_channel_change": {
+        "Beautrium": 0,
+        "Eveandboy": 0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 0.0,
+        "Eveandboy": 0.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.0
+    },
+    {
+      "sku_key": "red chamber wandering multi-purpose stick dancing 4.8 g dancing",
+      "name": "RED CHAMBER WANDERING Multi-Purpose Stick Dancing 4.8 g Dancing",
+      "category": "多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025852436"
+      ],
+      "w1": 1.0,
+      "w2": 0,
+      "w3": 0,
+      "cum": 1.0,
+      "w3_vs_w2_abs": 0,
+      "w3_vs_w2_pct": null,
+      "by_channel_change": {
+        "Beautrium": 0,
+        "Eveandboy": 0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 0.0,
+        "Eveandboy": 0.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.0
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick clear gleaming ds000 3.5 g clear gleaming",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Clear Gleaming DS000 3.5 g Clear Gleaming",
+      "category": "水光多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855314"
+      ],
+      "w1": 2.0,
+      "w2": 1.0,
+      "w3": 1.0,
+      "cum": 4.0,
+      "w3_vs_w2_abs": 0.0,
+      "w3_vs_w2_pct": 0.0,
+      "by_channel_change": {
+        "Beautrium": -1.0,
+        "Eveandboy": 1.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 0.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": 0.0
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick quiet turning ds501 3.5 g quiet turning",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Quiet Turning DS501 3.5 g Quiet Turning",
+      "category": "水光多用棒",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855321"
+      ],
+      "w1": 3.0,
+      "w2": 1.0,
+      "w3": 1.0,
+      "cum": 5.0,
+      "w3_vs_w2_abs": 0.0,
+      "w3_vs_w2_pct": 0.0,
+      "by_channel_change": {
+        "Beautrium": 0,
+        "Eveandboy": -1.0,
+        "KIS": 1.0
+      },
+      "by_channel_w3": {
+        "Beautrium": 0.0,
+        "Eveandboy": 0.0,
+        "KIS": 1.0
+      },
+      "contribution_to_category_change": 0.0
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#chumei 1.5g chumei c301",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Chumei 1.5g Chumei C301",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975559370079"
+      ],
+      "w1": 17.0,
+      "w2": 10.0,
+      "w3": 10.0,
+      "cum": 37.0,
+      "w3_vs_w2_abs": 0.0,
+      "w3_vs_w2_pct": 0.0,
+      "by_channel_change": {
+        "Beautrium": -2.0,
+        "Eveandboy": 2.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 3.0,
+        "Eveandboy": 7.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.0
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#heyou c203 1.5g c203heyou",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Heyou C203 1.5g C203Heyou",
+      "category": "多用膏",
+      "category_source": "Beautrium sheet",
+      "barcodes": [
+        "6975025855376"
+      ],
+      "w1": 1.0,
+      "w2": 3.0,
+      "w3": 3.0,
+      "cum": 7.0,
+      "w3_vs_w2_abs": 0.0,
+      "w3_vs_w2_pct": 0.0,
+      "by_channel_change": {
+        "Beautrium": 2.0,
+        "Eveandboy": -2.0,
+        "KIS": 0
+      },
+      "by_channel_w3": {
+        "Beautrium": 2.0,
+        "Eveandboy": 1.0,
+        "KIS": 0.0
+      },
+      "contribution_to_category_change": -0.0
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-09-30T03:35:27Z",
+  "items": [
+    {
+      "id": "konvy_store_blank",
+      "severity": "high",
+      "category": "store",
+      "detail": "All Konvy stores are blank for Sep W1–W3 in 店铺销量; only the channel Total row carries real figures. Konvy is excluded from all store-level drilldowns and rankings."
+    },
+    {
+      "id": "store_partial_missing",
+      "severity": "medium",
+      "category": "store",
+      "detail": "RAMA9 (KIS) is missing W3 in 店铺销量 (blank cell, not a reported 0) -- excluded from formal WoW ranking for that comparison."
+    },
+    {
+      "id": "store_partial_missing",
+      "severity": "medium",
+      "category": "store",
+      "detail": "Phuket (KIS) is missing W1 in 店铺销量 (blank cell, not a reported 0) -- excluded from formal WoW ranking for that comparison."
+    },
+    {
+      "id": "konvy_sku_missing",
+      "severity": "high",
+      "category": "coverage",
+      "detail": "Konvy channel sheet has no September weekly SKU columns (stops at August). SKU coverage: Beautrium, Eveandboy and KIS only; Konvy September SKU data unavailable."
+    },
+    {
+      "id": "category_backfilled",
+      "severity": "info",
+      "category": "sku_mapping",
+      "detail": "\"RED CHAMBER HARUKI Tri-Color Multi-Purpose Highlighter#Snow Song 3.8g+1.9g+1.8g Snow Song\" has a blank Category cell on Beautrium; resolved as \"高光盘\" via the same barcode’s Category on Eveandboy sheet."
+    },
+    {
+      "id": "sku_has_multiple_barcodes",
+      "severity": "info",
+      "category": "sku_mapping",
+      "detail": "\"RED CHAMBER WANDERING Multi-Purpose Stick Approaching 4.8 g Approaching\" is sold under 2 barcodes (6975025852054, 6975025856625); merged into one SKU so units are not double counted."
+    },
+    {
+      "id": "sku_has_multiple_barcodes",
+      "severity": "info",
+      "category": "sku_mapping",
+      "detail": "\"RED CHAMBER HARUKI Multi-Purpose Cream #Jayin C102 1.5g C102Jayin\" is sold under 2 barcodes (6975025856014, 6975025857097); merged into one SKU so units are not double counted."
+    },
+    {
+      "id": "kis_w2_amount_discrepancy",
+      "severity": "low",
+      "category": "reconciliation",
+      "detail": "KIS store-sales W2 Total = ฿8,115 vs KIS SKU-sheet W2 Amount sum = ฿8,116 (฿+1 difference). Both are shown as-is; not reconciled by hand."
+    },
+    {
+      "id": "month_not_closed",
+      "severity": "medium",
+      "category": "scope",
+      "detail": "This review covers September Weeks 1-3 only; the month is not closed. Do not read W1-3 totals as a full-month figure."
+    },
+    {
+      "id": "three_channel_sku_scope",
+      "severity": "medium",
+      "category": "coverage",
+      "detail": "All category and SKU findings on this review represent Beautrium + Eveandboy + KIS only, not all 4 channels (Konvy excluded, see coverage note)."
+    },
+    {
+      "id": "av_not_official",
+      "severity": "info",
+      "category": "methodology",
+      "detail": "SKU销量!AV is an SRP × PCS estimate, not an official sales-value figure. It is not used for any overall/channel/store/category/SKU THB KPI."
+    },
+    {
+      "id": "no_exact_week_dates",
+      "severity": "info",
+      "category": "methodology",
+      "detail": "The source workbook gives no explicit Sep week start/end dates (unlike August’s \"1-2nd Aug\" style labels). Only the labels Sep W1 / Sep W2 / Sep W3 are used; no calendar dates are inferred."
+    },
+    {
+      "id": "no_update_timestamp",
+      "severity": "info",
+      "category": "methodology",
+      "detail": "The source workbook carries no data-refresh timestamp field of its own. \"generated_at\" below reflects when this ETL script last ran, not when the underlying sheet data was last entered."
+    }
+  ]
+}

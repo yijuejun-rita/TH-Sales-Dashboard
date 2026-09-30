@@ -1,0 +1,10 @@
+{
+  "name": "th-sales-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thailand KA Sales Review dashboards (static site, GitHub Pages).",
+  "scripts": {
+    "refresh-data": "python3 etl/september_review/build_data.py",
+    "verify-data": "python3 etl/september_review/verify_control_totals.py"
+  }
+}
