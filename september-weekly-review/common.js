@@ -11,6 +11,7 @@ const DATA_FILES = {
   categoryUnits: '../data/september/weekly_category_units.json',
   dataQuality: '../data/september/data_quality.json',
   keyFindings: '../data/september/key_findings.json',
+  augustComparison: '../data/september/august_comparison.json',
 };
 
 async function loadSeptemberData() {
@@ -118,6 +119,7 @@ function renderTopNav(containerId, currentPage) {
     { href: 'index.html', label: '① Executive Overview', key: 'exec' },
     { href: 'channel-store.html', label: '② Channel & Store', key: 'channel-store' },
     { href: 'category-sku.html', label: '③ Category & SKU', key: 'category-sku' },
+    { href: 'vs-august.html', label: '④ vs August', key: 'vs-august' },
   ];
   const nav = el(
     'div',
