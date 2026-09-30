@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "generated_at": "2026-09-30T03:35:27Z",
+    "review_scope": "September Weeks 1–3 | Month Not Closed",
+    "source_file_name": "Thailand Sales Data (3).xlsx",
+    "unit": "PCS",
+    "coverage": "SKU coverage: Beautrium, Eveandboy and KIS only; Konvy September SKU data unavailable."
+  },
+  "categories": [
+    {
+      "category": "多用膏",
+      "w1": 135.0,
+      "w2": 136.0,
+      "w3": 128.0,
+      "w3_vs_w2_abs": -8.0,
+      "w3_vs_w2_pct": -0.05882352941176472,
+      "w3_vs_avg12_pct": -0.05535055350553508,
+      "share_w3": 0.46886446886446886,
+      "contribution_to_total_change": -0.14035087719298245
+    },
+    {
+      "category": "多用粉",
+      "w1": 70.0,
+      "w2": 49.0,
+      "w3": 91.0,
+      "w3_vs_w2_abs": 42.0,
+      "w3_vs_w2_pct": 0.8571428571428572,
+      "w3_vs_avg12_pct": 0.5294117647058822,
+      "share_w3": 0.3333333333333333,
+      "contribution_to_total_change": 0.7368421052631579
+    },
+    {
+      "category": "多用液",
+      "w1": 3.0,
+      "w2": 8.0,
+      "w3": 13.0,
+      "w3_vs_w2_abs": 5.0,
+      "w3_vs_w2_pct": 0.625,
+      "w3_vs_avg12_pct": 1.3636363636363638,
+      "share_w3": 0.047619047619047616,
+      "contribution_to_total_change": 0.08771929824561403
+    },
+    {
+      "category": "水光多用棒",
+      "w1": 12.0,
+      "w2": 7.0,
+      "w3": 13.0,
+      "w3_vs_w2_abs": 6.0,
+      "w3_vs_w2_pct": 0.8571428571428572,
+      "w3_vs_avg12_pct": 0.368421052631579,
+      "share_w3": 0.047619047619047616,
+      "contribution_to_total_change": 0.10526315789473684
+    },
+    {
+      "category": "水光多用液",
+      "w1": 1.0,
+      "w2": 1.0,
+      "w3": 10.0,
+      "w3_vs_w2_abs": 9.0,
+      "w3_vs_w2_pct": 9.0,
+      "w3_vs_avg12_pct": 9.0,
+      "share_w3": 0.03663003663003663,
+      "contribution_to_total_change": 0.15789473684210525
+    },
+    {
+      "category": "粉饼",
+      "w1": 9.0,
+      "w2": 5.0,
+      "w3": 9.0,
+      "w3_vs_w2_abs": 4.0,
+      "w3_vs_w2_pct": 0.8,
+      "w3_vs_avg12_pct": 0.2857142857142858,
+      "share_w3": 0.03296703296703297,
+      "contribution_to_total_change": 0.07017543859649122
+    },
+    {
+      "category": "修容盘",
+      "w1": 0,
+      "w2": 3.0,
+      "w3": 5.0,
+      "w3_vs_w2_abs": 2.0,
+      "w3_vs_w2_pct": 0.6666666666666667,
+      "w3_vs_avg12_pct": 2.3333333333333335,
+      "share_w3": 0.018315018315018316,
+      "contribution_to_total_change": 0.03508771929824561
+    },
+    {
+      "category": "多用棒",
+      "w1": 1.0,
+      "w2": 0,
+      "w3": 3.0,
+      "w3_vs_w2_abs": 3.0,
+      "w3_vs_w2_pct": null,
+      "w3_vs_avg12_pct": 5.0,
+      "share_w3": 0.01098901098901099,
+      "contribution_to_total_change": 0.05263157894736842
+    },
+    {
+      "category": "高光盘",
+      "w1": 1.0,
+      "w2": 4.0,
+      "w3": 1.0,
+      "w3_vs_w2_abs": -3.0,
+      "w3_vs_w2_pct": -0.75,
+      "w3_vs_avg12_pct": -0.6,
+      "share_w3": 0.003663003663003663,
+      "contribution_to_total_change": -0.05263157894736842
+    },
+    {
+      "category": "双色多用盘",
+      "w1": 7.0,
+      "w2": 3.0,
+      "w3": 0,
+      "w3_vs_w2_abs": -3.0,
+      "w3_vs_w2_pct": -1.0,
+      "w3_vs_avg12_pct": -1.0,
+      "share_w3": 0.0,
+      "contribution_to_total_change": -0.05263157894736842
+    }
+  ],
+  "total_3channel": {
+    "w1": 239.0,
+    "w2": 216.0,
+    "w3": 273.0,
+    "cum": 728.0
+  }
+}

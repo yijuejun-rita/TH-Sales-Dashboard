@@ -3,7 +3,11 @@
 Thailand KA Sales Review — Monthly + Weekly dashboards, static site on GitHub Pages.
 
 - **Monthly Dashboard** (existing, unchanged): `index.html` and the 4 monthly HTML pages.
-- **Weekly Dashboard** (new, this update): `weekly/overview.html`, `weekly/channel-store.html`, `weekly/category-sku.html`.
+- **Weekly Dashboard** (existing, unchanged): `weekly/overview.html`, `weekly/channel-store.html`, `weekly/category-sku.html`.
+- **September 2026 Weekly Review** (new, this update): `september-weekly-review/index.html`,
+  `september-weekly-review/channel-store.html`, `september-weekly-review/category-sku.html` — see
+  section 11 below. This is a separate, independent section; it does not touch the Monthly or
+  Weekly Dashboard files or data.
 
 The Weekly Dashboard reads `data/weekly_data.json`, which is regenerated automatically from the
 private Google Sheet on an hourly schedule by GitHub Actions (`.github/workflows/weekly-sync.yml`).
@@ -188,3 +192,106 @@ sheets and the `SKU销量` TTL block (5,416 = 5,416), barcode-type inconsistency
 - `SKU销量` is missing ~41 of the ~80 barcodes tracked in the 4 channel sheets.
 - Konvy reports **zero** data of any kind (not even a Total-row entry) for all of May 2026 — those
   weeks are excluded from formal comparisons for that reason, not a bug in the completeness check.
+
+## 11. September 2026 Weekly Review (Sep W1–W3, month not closed)
+
+A separate, independent section covering **only September Weeks 1–3** from a one-off uploaded
+workbook (not the auto-synced Google Sheet). It never claims a full-month close, never invents
+calendar dates for the September weeks (the source gives no day ranges for them, unlike August's
+`1-2nd Aug` style labels), and never touches the Monthly or Weekly Dashboard files/data.
+
+**Pages** (design language, colors, fonts, cards, charts and responsive layout all reused from the
+existing dashboards — same `Chart.js` build, same KPI-card / chart-card / findings-list / dq-panel
+CSS classes):
+
+- `september-weekly-review/index.html` — Executive Overview: 4 KPI cards (W1–W3 cumulative, W3,
+  W3 vs W2, W3 vs W1–W2 average), a 3-point weekly trend line (W3 highlighted, W1–W2 average
+  reference line, no fill/smoothing/dual-axis, actual value labels on every point), a channel
+  overview table + sorted horizontal bar chart, and an auto-generated ≤5-bullet Weekly Key Findings
+  list (numbers only, no speculation about inventory/promotions/BA/display causes).
+- `september-weekly-review/channel-store.html` — Channel & Store: channel performance table (W1–W3,
+  cumulative, WoW, vs-W1–W2-average, share, contribution to the overall change), a change-rate bar
+  chart with an explicit 0% reference line, a store table (channel filter / name search / sort by
+  W3 sales / Top growth / Top decline) sourced only from `店铺销量` non-Total rows, and a store data
+  limitations panel.
+- `september-weekly-review/category-sku.html` — Category & SKU: a `Coverage: 3 of 4 channels | Konvy
+  SKU weekly data missing` banner up top, category performance table + sorted horizontal bar chart
+  (PCS, no pie chart), and a SKU driver table (default sort `|W3 − W2|` descending) that splits each
+  SKU's change into its Beautrium/Eveandboy/KIS contributions.
+- All 3 pages carry a small floating **Data Quality** button (bottom-right) that opens a drawer with
+  every data-quality note from this run, sorted by severity — kept out of the main page flow per
+  spec, while the notes that matter most to each page are still shown inline on that page too.
+- An entry point was added to the top-level `index.html` (new nav pill + a new "September 2026 Weekly
+  Review" card section) linking into all 3 pages. The existing Monthly Dashboard cards/pages are
+  untouched.
+
+**Data sourcing rules (enforced in code, not just docs):**
+
+| Scope | Unit | Source | Notes |
+|---|---|---|---|
+| Overall / Channel / Store | THB | `店铺销量`, channel `Total` rows for overall/channel, non-`Total` rows for stores | Never summed together (Total-row vs. store-row double counting is checked and raises an error if detected) |
+| Category / SKU | PCS | `Beautrium` + `Eveandboy` + `KIS` weekly QTY columns only | `Konvy` has no September weekly SKU columns in this workbook (stops at August) — excluded, never treated as 0 |
+| — | — | `SKU销量!AV` (PCS × SRP) | Never used for any THB KPI — it's an estimate, not a sales figure |
+
+Blank cells are kept as `null` end-to-end (never coerced to `0`); a genuinely reported `0` stays `0`.
+Barcode aliases confirmed against the source (`Jayin`: `6975025856014`/`6975025857097`, `Approaching`:
+`6975025852054`/`6975025856625`) are merged into one SKU each; Beautrium's blank `Category` cell for
+`Snow Song` is resolved to `高光盘` via the same barcode's category on the other sheets — both are
+logged as Data Quality notes, not silently patched.
+
+**Data processing pipeline** (`etl/september_review/`):
+
+```
+npm run refresh-data -- "path/to/Thailand Sales Data (N).xlsx"
+npm run verify-data
+```
+
+`build_data.py` reads all 6 sheets, verifies every column it reads against the expected header text
+before trusting it (raises loudly on a layout change rather than silently mis-reading), and writes 6
+JSON files to `data/september/`:
+
+- `weekly_channel_value.json` — overall + per-channel W1/W2/W3 + cumulative, THB
+- `weekly_store_value.json` — per-store W1/W2/W3 + cumulative + status, THB, Total rows excluded
+- `weekly_sku_units.json` — per-SKU (barcode-merged) W1/W2/W3 by channel, PCS, contribution to
+  category change
+- `weekly_category_units.json` — per-category W1/W2/W3 + contribution to the 3-channel PCS change
+- `data_quality.json` — every data-quality note this run produced, with severity
+- `key_findings.json` — the ≤5 auto-generated Weekly Key Findings shown on the Executive Overview
+
+`verify_control_totals.py` re-checks the JSON output against the manually-verified control totals
+below (never used to compute anything — only to catch a regression) and exits non-zero on any
+mismatch:
+
+| | W1 | W2 | W3 | W1–W3 cum |
+|---|---:|---:|---:|---:|
+| Overall (THB) | 235,586 | 254,006 | 235,018 | 724,610 |
+| Beautrium | 70,474 | 64,530 | 83,295 | 218,299 |
+| Eveandboy | 52,113 | 41,823 | 57,648 | 151,584 |
+| KIS | 5,931 | 8,115 | 6,179 | 20,225 |
+| Konvy | 107,068 | 139,538 | 87,896 | 334,502 |
+| 3-channel PCS (Beautrium+Eveandboy+KIS) | 239 | 216 | 273 | 728 |
+
+Plus category W3/Δ, 6 named store deltas, and 6 named SKU deltas from the spec — **48 checks total,
+all passing** as of this delivery (`python3 etl/september_review/verify_control_totals.py`).
+
+**Data quality notes shipped in `data_quality.json`** (also viewable live in the Data Quality drawer
+on every page): September covers weeks 1–3 only (month not closed); Konvy has no September weekly
+SKU columns (category/SKU scope is 3 of 4 channels); Konvy's store-level rows are blank in
+`店铺销量` (channel Total only); KIS store-sales W2 Total (฿8,115) vs. KIS SKU-sheet W2 Amount sum
+(฿8,116) — a ฿1 difference, shown as-is; `SKU销量!AV` is an SRP estimate, not an official sales
+figure; the source gives no exact September week start/end dates; the source carries no data
+refresh-timestamp field of its own (`generated_at` in the JSON is this ETL run's own timestamp, not
+the sheet's); plus two barcode-merge notes and one category-backfill note (see above).
+
+**Re-running for a future month/file:** drop the new workbook anywhere (e.g. `source-data/`, which
+is git-ignored — raw workbooks with barcodes/SRPs are never committed, only the aggregated JSON is)
+and re-run `npm run refresh-data -- "<path>"`. The dashboard reads only `data/september/*.json` and
+picks up the new numbers automatically on next page load; nothing in `september-weekly-review/*.html`
+or `*.js` needs to change unless the sheet layout itself changes (in which case the header checks in
+`build_data.py` will fail loudly rather than publish a silently-wrong number).
+
+**Local verification performed for this delivery:** `npm run refresh-data` + `npm run verify-data`
+(48/48 checks pass); a headless-browser pass over all 3 pages at desktop (1280×900) and mobile
+(390×844) widths confirmed 0 console errors, 0 occurrences of `NaN`/`Infinity`/`undefined` in the
+rendered text, and no empty charts; the top-level `index.html` (Monthly Dashboard) was re-checked
+and still renders unchanged.
