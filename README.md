@@ -218,11 +218,22 @@ CSS classes):
   SKU weekly data missing` banner up top, category performance table + sorted horizontal bar chart
   (PCS, no pie chart), and a SKU driver table (default sort `|W3 − W2|` descending) that splits each
   SKU's change into its Beautrium/Eveandboy/KIS contributions.
-- All 3 pages carry a small floating **Data Quality** button (bottom-right) that opens a drawer with
+- `september-weekly-review/vs-august.html` — Sep W1–3 vs August: compares September's 3 partial weeks
+  against August's full 5 weeks on a **weekly-pace basis** (period total ÷ weeks-in-period), since a
+  raw-total comparison would be misleading — raw totals are still shown in the tables for reference.
+  4 KPI cards (overall weekly-pace change THB, 3-channel weekly-pace change PCS, worst channel, most
+  resilient channel — all computed dynamically, never hardcoded), two grouped horizontal bar charts
+  (channel THB and category PCS, August bars in gray/tan vs. September bars in blue/orange so the two
+  periods are never visually confused), channel and category comparison tables, a searchable SKU
+  driver table (default sort `|Δ weekly pace|` descending), and a comparison-specific Data Quality
+  panel. Konvy is excluded from category/SKU on **both** periods (not just September) so the
+  comparison stays apples-to-apples; Konvy's own August product-line total is shown as context only,
+  never summed into any total.
+- All 4 pages carry a small floating **Data Quality** button (bottom-right) that opens a drawer with
   every data-quality note from this run, sorted by severity — kept out of the main page flow per
   spec, while the notes that matter most to each page are still shown inline on that page too.
 - An entry point was added to the top-level `index.html` (new nav pill + a new "September 2026 Weekly
-  Review" card section) linking into all 3 pages. The existing Monthly Dashboard cards/pages are
+  Review" card section) linking into all 4 pages. The existing Monthly Dashboard cards/pages are
   untouched.
 
 **Data sourcing rules (enforced in code, not just docs):**
@@ -244,6 +255,7 @@ logged as Data Quality notes, not silently patched.
 ```
 npm run refresh-data -- "path/to/Thailand Sales Data (N).xlsx"
 npm run verify-data
+python3 etl/september_review/build_august_comparison.py "path/to/Thailand Sales Data (N).xlsx"
 ```
 
 `build_data.py` reads all 6 sheets, verifies every column it reads against the expected header text
@@ -258,6 +270,16 @@ JSON files to `data/september/`:
 - `data_quality.json` — every data-quality note this run produced, with severity
 - `key_findings.json` — the ≤5 auto-generated Weekly Key Findings shown on the Executive Overview
 
+`build_august_comparison.py` reuses `build_data.py`'s parsing, canonical-SKU and barcode-merge logic
+(imports it as a module rather than re-implementing it) to additionally read August's `Aug Total` /
+`Aug week 1-5` store-sales columns and each channel sheet's `8月 TTL` / `TTL QTY` column, then loads
+the already-generated September JSON above (rather than recomputing September) so the two pipelines
+can never disagree on a number. It writes `data/september/august_comparison.json` — overall, per
+channel, per category, 3-channel PCS total, and per-SKU rows, each carrying `aug_total`,
+`aug_weekly_pace` (÷5), `sep_total`, `sep_weekly_pace` (÷3), and `weekly_pace_change_pct` — plus 3
+comparison-specific data-quality notes (methodology, Konvy exclusion from both periods, Konvy's
+August-only context figure).
+
 `verify_control_totals.py` re-checks the JSON output against the manually-verified control totals
 below (never used to compute anything — only to catch a regression) and exits non-zero on any
 mismatch:
@@ -271,8 +293,22 @@ mismatch:
 | Konvy | 107,068 | 139,538 | 87,896 | 334,502 |
 | 3-channel PCS (Beautrium+Eveandboy+KIS) | 239 | 216 | 273 | 728 |
 
-Plus category W3/Δ, 6 named store deltas, and 6 named SKU deltas from the spec — **48 checks total,
-all passing** as of this delivery (`python3 etl/september_review/verify_control_totals.py`).
+Plus category W3/Δ, 6 named store deltas, and 6 named SKU deltas from the spec, and (once
+`august_comparison.json` exists) August totals + weekly-pace-change checks for overall, all 4
+channels, 3-channel PCS, and 3 named categories — **63 checks total, all passing** as of this
+delivery (`python3 etl/september_review/verify_control_totals.py`).
+
+**August comparison control totals** (also weekly-pace basis, manually verified against the source
+workbook before `build_august_comparison.py` existed, and re-checked by the script above):
+
+| | Aug total (5 wk) | Weekly-pace change vs Sep |
+|---|---:|---:|
+| Overall (THB) | 1,623,258 | −25.6% |
+| Beautrium | 496,236 | −26.7% |
+| Eveandboy | 268,704 | −6.0% |
+| KIS | 110,292 | −69.4% |
+| Konvy | 748,026 | −25.5% |
+| 3-channel PCS | 1,633 | −25.7% |
 
 **Data quality notes shipped in `data_quality.json`** (also viewable live in the Data Quality drawer
 on every page): September covers weeks 1–3 only (month not closed); Konvy has no September weekly
@@ -290,8 +326,9 @@ picks up the new numbers automatically on next page load; nothing in `september-
 or `*.js` needs to change unless the sheet layout itself changes (in which case the header checks in
 `build_data.py` will fail loudly rather than publish a silently-wrong number).
 
-**Local verification performed for this delivery:** `npm run refresh-data` + `npm run verify-data`
-(48/48 checks pass); a headless-browser pass over all 3 pages at desktop (1280×900) and mobile
-(390×844) widths confirmed 0 console errors, 0 occurrences of `NaN`/`Infinity`/`undefined` in the
-rendered text, and no empty charts; the top-level `index.html` (Monthly Dashboard) was re-checked
-and still renders unchanged.
+**Local verification performed for this delivery:** `npm run refresh-data` + `npm run verify-data` +
+`build_august_comparison.py` (63/63 checks pass); a headless-browser pass over all 4 pages at desktop
+(1280×900) and mobile (390×844) widths confirmed 0 console errors, 0 occurrences of
+`NaN`/`Infinity`/`undefined` in the rendered text, and no empty charts; the top-level `index.html`
+(Monthly Dashboard, now also linking to `vs-august.html`) was re-checked and still renders as
+expected.
