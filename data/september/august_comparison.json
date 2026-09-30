@@ -1,0 +1,705 @@
+{
+  "meta": {
+    "generated_at": "2026-09-30T06:55:12Z",
+    "source_file_name": "Thailand Sales Data (3).xlsx",
+    "aug_weeks": 5,
+    "sep_weeks": 3,
+    "basis": "weekly-average pace (period total / number of weeks in that period)"
+  },
+  "overall": {
+    "aug_total": 1623258.0,
+    "aug_weekly_pace": 324651.6,
+    "sep_total": 724610.0,
+    "sep_weekly_pace": 241536.66666666666,
+    "weekly_pace_change_pct": -0.25601270202682913
+  },
+  "channels": {
+    "Beautrium": {
+      "aug_total": 496236.0,
+      "aug_weekly_pace": 99247.2,
+      "sep_total": 218299.0,
+      "sep_weekly_pace": 72766.33333333333,
+      "weekly_pace_change_pct": -0.266817267053042
+    },
+    "Eveandboy": {
+      "aug_total": 268704.0,
+      "aug_weekly_pace": 53740.8,
+      "sep_total": 151584.0,
+      "sep_weekly_pace": 50528.0,
+      "weekly_pace_change_pct": -0.0597832559247351
+    },
+    "KIS": {
+      "aug_total": 110292.0,
+      "aug_weekly_pace": 22058.4,
+      "sep_total": 20225.0,
+      "sep_weekly_pace": 6741.666666666667,
+      "weekly_pace_change_pct": -0.6943719097184444
+    },
+    "Konvy": {
+      "aug_total": 748026.0,
+      "aug_weekly_pace": 149605.2,
+      "sep_total": 334502.0,
+      "sep_weekly_pace": 111500.66666666667,
+      "weekly_pace_change_pct": -0.2547005941861201
+    }
+  },
+  "categories": [
+    {
+      "category": "多用膏",
+      "aug_total": 902.0,
+      "aug_weekly_pace": 180.4,
+      "sep_total": 399.0,
+      "sep_weekly_pace": 133.0,
+      "weekly_pace_change_pct": -0.262749445676275
+    },
+    {
+      "category": "多用粉",
+      "aug_total": 513.0,
+      "aug_weekly_pace": 102.6,
+      "sep_total": 210.0,
+      "sep_weekly_pace": 70.0,
+      "weekly_pace_change_pct": -0.3177387914230019
+    },
+    {
+      "category": "水光多用棒",
+      "aug_total": 88.0,
+      "aug_weekly_pace": 17.6,
+      "sep_total": 32.0,
+      "sep_weekly_pace": 10.666666666666666,
+      "weekly_pace_change_pct": -0.39393939393939403
+    },
+    {
+      "category": "多用液",
+      "aug_total": 34.0,
+      "aug_weekly_pace": 6.8,
+      "sep_total": 24.0,
+      "sep_weekly_pace": 8.0,
+      "weekly_pace_change_pct": 0.17647058823529416
+    },
+    {
+      "category": "粉饼",
+      "aug_total": 35.0,
+      "aug_weekly_pace": 7.0,
+      "sep_total": 23.0,
+      "sep_weekly_pace": 7.666666666666667,
+      "weekly_pace_change_pct": 0.09523809523809534
+    },
+    {
+      "category": "水光多用液",
+      "aug_total": 15.0,
+      "aug_weekly_pace": 3.0,
+      "sep_total": 12.0,
+      "sep_weekly_pace": 4.0,
+      "weekly_pace_change_pct": 0.33333333333333326
+    },
+    {
+      "category": "双色多用盘",
+      "aug_total": 11.0,
+      "aug_weekly_pace": 2.2,
+      "sep_total": 10.0,
+      "sep_weekly_pace": 3.3333333333333335,
+      "weekly_pace_change_pct": 0.5151515151515151
+    },
+    {
+      "category": "修容盘",
+      "aug_total": 14.0,
+      "aug_weekly_pace": 2.8,
+      "sep_total": 8.0,
+      "sep_weekly_pace": 2.6666666666666665,
+      "weekly_pace_change_pct": -0.04761904761904756
+    },
+    {
+      "category": "高光盘",
+      "aug_total": 5.0,
+      "aug_weekly_pace": 1.0,
+      "sep_total": 6.0,
+      "sep_weekly_pace": 2.0,
+      "weekly_pace_change_pct": 1.0
+    },
+    {
+      "category": "多用棒",
+      "aug_total": 16.0,
+      "aug_weekly_pace": 3.2,
+      "sep_total": 4.0,
+      "sep_weekly_pace": 1.3333333333333333,
+      "weekly_pace_change_pct": -0.5833333333333334
+    }
+  ],
+  "total_3channel": {
+    "aug_total": 1633.0,
+    "aug_weekly_pace": 326.6,
+    "sep_total": 728.0,
+    "sep_weekly_pace": 242.66666666666666,
+    "weekly_pace_change_pct": -0.25699122269850994
+  },
+  "skus": [
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#moon 1.5g moon c304",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Moon 1.5g Moon C304",
+      "category": "多用膏",
+      "barcodes": [
+        "6975559370550"
+      ],
+      "aug_total": 111.0,
+      "aug_weekly_pace": 22.2,
+      "sep_total": 30.0,
+      "sep_weekly_pace": 10.0,
+      "weekly_pace_change_pct": -0.5495495495495495,
+      "weekly_pace_change_abs": -12.2
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#haelyn c309 1.5g haelyn",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Haelyn C309 1.5g Haelyn",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025855352"
+      ],
+      "aug_total": 114.0,
+      "aug_weekly_pace": 22.8,
+      "sep_total": 35.0,
+      "sep_weekly_pace": 11.666666666666666,
+      "weekly_pace_change_pct": -0.48830409356725146,
+      "weekly_pace_change_abs": -11.133333333333335
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #moon’s path cp303 2g moon’s path",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Moon’s Path CP303 2g Moon’s Path",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025855390"
+      ],
+      "aug_total": 106.0,
+      "aug_weekly_pace": 21.2,
+      "sep_total": 41.0,
+      "sep_weekly_pace": 13.666666666666666,
+      "weekly_pace_change_pct": -0.35534591194968557,
+      "weekly_pace_change_abs": -7.533333333333333
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#suin c101 1.5g c101suin",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Suin C101 1.5g C101Suin",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025855383"
+      ],
+      "aug_total": 52.0,
+      "aug_weekly_pace": 10.4,
+      "sep_total": 11.0,
+      "sep_weekly_pace": 3.6666666666666665,
+      "weekly_pace_change_pct": -0.6474358974358975,
+      "weekly_pace_change_abs": -6.733333333333334
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #veiled dawn cp300 2g cp300veiled dawn",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Veiled Dawn CP300 2g CP300Veiled Dawn",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025855628"
+      ],
+      "aug_total": 69.0,
+      "aug_weekly_pace": 13.8,
+      "sep_total": 24.0,
+      "sep_weekly_pace": 8.0,
+      "weekly_pace_change_pct": -0.42028985507246375,
+      "weekly_pace_change_abs": -5.800000000000001
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #resonance unfolds cp301 2g cp301resonance unfolds",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Resonance Unfolds CP301 2g CP301Resonance Unfolds",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025855635"
+      ],
+      "aug_total": 99.0,
+      "aug_weekly_pace": 19.8,
+      "sep_total": 42.0,
+      "sep_weekly_pace": 14.0,
+      "weekly_pace_change_pct": -0.29292929292929293,
+      "weekly_pace_change_abs": -5.800000000000001
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#lekui 1.5g lekui c401",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Lekui 1.5g Lekui C401",
+      "category": "多用膏",
+      "barcodes": [
+        "6975559370369"
+      ],
+      "aug_total": 83.0,
+      "aug_weekly_pace": 16.6,
+      "sep_total": 33.0,
+      "sep_weekly_pace": 11.0,
+      "weekly_pace_change_pct": -0.33734939759036153,
+      "weekly_pace_change_abs": -5.600000000000001
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #satin rise cp002 2g satin rise",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Satin Rise CP002 2g Satin Rise",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025855406"
+      ],
+      "aug_total": 74.0,
+      "aug_weekly_pace": 14.8,
+      "sep_total": 28.0,
+      "sep_weekly_pace": 9.333333333333334,
+      "weekly_pace_change_pct": -0.36936936936936937,
+      "weekly_pace_change_abs": -5.466666666666667
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#monsia 1.5g monsia c303",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Monsia 1.5g Monsia C303",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025850173"
+      ],
+      "aug_total": 94.0,
+      "aug_weekly_pace": 18.8,
+      "sep_total": 43.0,
+      "sep_weekly_pace": 14.333333333333334,
+      "weekly_pace_change_pct": -0.23758865248226946,
+      "weekly_pace_change_abs": -4.466666666666667
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream #jayin c102 1.5g c102jayin",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream #Jayin C102 1.5g C102Jayin",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025856014",
+        "6975025857097"
+      ],
+      "aug_total": 92.0,
+      "aug_weekly_pace": 18.4,
+      "sep_total": 45.0,
+      "sep_weekly_pace": 15.0,
+      "weekly_pace_change_pct": -0.1847826086956521,
+      "weekly_pace_change_abs": -3.3999999999999986
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick spirited leap ds300 3.5 g spirited leap",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Spirited Leap DS300 3.5 g Spirited Leap",
+      "category": "水光多用棒",
+      "barcodes": [
+        "6975025854461"
+      ],
+      "aug_total": 33.0,
+      "aug_weekly_pace": 6.6,
+      "sep_total": 10.0,
+      "sep_weekly_pace": 3.3333333333333335,
+      "weekly_pace_change_pct": -0.4949494949494949,
+      "weekly_pace_change_abs": -3.266666666666666
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #clear leap cp000 2g cp000clear leap",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Clear Leap CP000 2g CP000Clear Leap",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025854393"
+      ],
+      "aug_total": 33.0,
+      "aug_weekly_pace": 6.6,
+      "sep_total": 10.0,
+      "sep_weekly_pace": 3.3333333333333335,
+      "weekly_pace_change_pct": -0.4949494949494949,
+      "weekly_pace_change_abs": -3.266666666666666
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #like a lute cp302 2g cp302like a lute",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Like a Lute CP302 2g CP302Like a Lute",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025854997"
+      ],
+      "aug_total": 59.0,
+      "aug_weekly_pace": 11.8,
+      "sep_total": 28.0,
+      "sep_weekly_pace": 9.333333333333334,
+      "weekly_pace_change_pct": -0.20903954802259883,
+      "weekly_pace_change_abs": -2.466666666666667
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream #chuwen c310 1.5g c310chuwen",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream #Chuwen C310 1.5g C310Chuwen",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025856007"
+      ],
+      "aug_total": 50.0,
+      "aug_weekly_pace": 10.0,
+      "sep_total": 24.0,
+      "sep_weekly_pace": 8.0,
+      "weekly_pace_change_pct": -0.19999999999999996,
+      "weekly_pace_change_abs": -2.0
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#tengwei 1.5g tengwei",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Tengwei 1.5g Tengwei",
+      "category": "多用膏",
+      "barcodes": [
+        "6975559370192"
+      ],
+      "aug_total": 24.0,
+      "aug_weekly_pace": 4.8,
+      "sep_total": 20.0,
+      "sep_weekly_pace": 6.666666666666667,
+      "weekly_pace_change_pct": 0.38888888888888906,
+      "weekly_pace_change_abs": 1.8666666666666671
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick quiet turning ds501 3.5 g quiet turning",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Quiet Turning DS501 3.5 g Quiet Turning",
+      "category": "水光多用棒",
+      "barcodes": [
+        "6975025855321"
+      ],
+      "aug_total": 15.0,
+      "aug_weekly_pace": 3.0,
+      "sep_total": 5.0,
+      "sep_weekly_pace": 1.6666666666666667,
+      "weekly_pace_change_pct": -0.4444444444444444,
+      "weekly_pace_change_abs": -1.3333333333333333
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #rock's breath cp001 2g cp001rock's breath",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Rock's Breath CP001 2g CP001Rock's Breath",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025854416"
+      ],
+      "aug_total": 30.0,
+      "aug_weekly_pace": 6.0,
+      "sep_total": 14.0,
+      "sep_weekly_pace": 4.666666666666667,
+      "weekly_pace_change_pct": -0.2222222222222222,
+      "weekly_pace_change_abs": -1.333333333333333
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#nanmu 1.5g nanmu c001",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Nanmu 1.5g Nanmu C001",
+      "category": "多用膏",
+      "barcodes": [
+        "6975559370055"
+      ],
+      "aug_total": 18.0,
+      "aug_weekly_pace": 3.6,
+      "sep_total": 7.0,
+      "sep_weekly_pace": 2.3333333333333335,
+      "weekly_pace_change_pct": -0.35185185185185186,
+      "weekly_pace_change_abs": -1.2666666666666666
+    },
+    {
+      "sku_key": "red chamber haruki hydraglow multi-use liquid #silent whispers gl400 3 g gl400 silent whispers",
+      "name": "RED CHAMBER HARUKI HydraGlow Multi-Use Liquid #Silent Whispers GL400 3 g GL400 Silent Whispers",
+      "category": "水光多用液",
+      "barcodes": [
+        "6975025854898"
+      ],
+      "aug_total": 7.0,
+      "aug_weekly_pace": 1.4,
+      "sep_total": 8.0,
+      "sep_weekly_pace": 2.6666666666666665,
+      "weekly_pace_change_pct": 0.9047619047619049,
+      "weekly_pace_change_abs": 1.2666666666666666
+    },
+    {
+      "sku_key": "red chamber haruki dual color multi-purpose cream #mancho 2 g mancho",
+      "name": "RED CHAMBER HARUKI Dual Color Multi-Purpose Cream #Mancho 2 g Mancho",
+      "category": "双色多用盘",
+      "barcodes": [
+        "6975025852283"
+      ],
+      "aug_total": 11.0,
+      "aug_weekly_pace": 2.2,
+      "sep_total": 10.0,
+      "sep_weekly_pace": 3.3333333333333335,
+      "weekly_pace_change_pct": 0.5151515151515151,
+      "weekly_pace_change_abs": 1.1333333333333333
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#chanyin 1.5g chanyin c307",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Chanyin 1.5g Chanyin C307",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025850180"
+      ],
+      "aug_total": 22.0,
+      "aug_weekly_pace": 4.4,
+      "sep_total": 10.0,
+      "sep_weekly_pace": 3.3333333333333335,
+      "weekly_pace_change_pct": -0.24242424242424243,
+      "weekly_pace_change_abs": -1.0666666666666669
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick tranquil respite ds100 3.5 g tranquil respite",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Tranquil Respite DS100 3.5 g Tranquil Respite",
+      "category": "水光多用棒",
+      "barcodes": [
+        "6975025854485"
+      ],
+      "aug_total": 12.0,
+      "aug_weekly_pace": 2.4,
+      "sep_total": 4.0,
+      "sep_weekly_pace": 1.3333333333333333,
+      "weekly_pace_change_pct": -0.4444444444444444,
+      "weekly_pace_change_abs": -1.0666666666666667
+    },
+    {
+      "sku_key": "red chamber wandering multi-purpose stick dancing 4.8 g dancing",
+      "name": "RED CHAMBER WANDERING Multi-Purpose Stick Dancing 4.8 g Dancing",
+      "category": "多用棒",
+      "barcodes": [
+        "6975025852436"
+      ],
+      "aug_total": 7.0,
+      "aug_weekly_pace": 1.4,
+      "sep_total": 1.0,
+      "sep_weekly_pace": 0.3333333333333333,
+      "weekly_pace_change_pct": -0.7619047619047619,
+      "weekly_pace_change_abs": -1.0666666666666667
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick clear gleaming ds000 3.5 g clear gleaming",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Clear Gleaming DS000 3.5 g Clear Gleaming",
+      "category": "水光多用棒",
+      "barcodes": [
+        "6975025855314"
+      ],
+      "aug_total": 12.0,
+      "aug_weekly_pace": 2.4,
+      "sep_total": 4.0,
+      "sep_weekly_pace": 1.3333333333333333,
+      "weekly_pace_change_pct": -0.4444444444444444,
+      "weekly_pace_change_abs": -1.0666666666666667
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#heyou c203 1.5g c203heyou",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Heyou C203 1.5g C203Heyou",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025855376"
+      ],
+      "aug_total": 17.0,
+      "aug_weekly_pace": 3.4,
+      "sep_total": 7.0,
+      "sep_weekly_pace": 2.3333333333333335,
+      "weekly_pace_change_pct": -0.3137254901960783,
+      "weekly_pace_change_abs": -1.0666666666666664
+    },
+    {
+      "sku_key": "red chamber haruki tri-color multi-purpose highlighter#snow song 3.8g+1.9g+1.8g snow song",
+      "name": "RED CHAMBER HARUKI Tri-Color Multi-Purpose Highlighter#Snow Song 3.8g+1.9g+1.8g Snow Song",
+      "category": "高光盘",
+      "barcodes": [
+        "6975025852931"
+      ],
+      "aug_total": 5.0,
+      "aug_weekly_pace": 1.0,
+      "sep_total": 6.0,
+      "sep_weekly_pace": 2.0,
+      "weekly_pace_change_pct": 1.0,
+      "weekly_pace_change_abs": 1.0
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#silkie 1.5g silkie c402",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Silkie 1.5g Silkie C402",
+      "category": "多用膏",
+      "barcodes": [
+        "6975559370086"
+      ],
+      "aug_total": 65.0,
+      "aug_weekly_pace": 13.0,
+      "sep_total": 36.0,
+      "sep_weekly_pace": 12.0,
+      "weekly_pace_change_pct": -0.07692307692307687,
+      "weekly_pace_change_abs": -1.0
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream powder #spring awakens cp600 2g cp600spring awakens",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream Powder #Spring Awakens CP600 2g CP600Spring Awakens",
+      "category": "多用粉",
+      "barcodes": [
+        "6975025854409"
+      ],
+      "aug_total": 43.0,
+      "aug_weekly_pace": 8.6,
+      "sep_total": 23.0,
+      "sep_weekly_pace": 7.666666666666667,
+      "weekly_pace_change_pct": -0.10852713178294571,
+      "weekly_pace_change_abs": -0.9333333333333327
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose liquid#deep talk l100",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Liquid#Deep Talk L100",
+      "category": "多用液",
+      "barcodes": [
+        "6975025855642"
+      ],
+      "aug_total": 22.0,
+      "aug_weekly_pace": 4.4,
+      "sep_total": 16.0,
+      "sep_weekly_pace": 5.333333333333333,
+      "weekly_pace_change_pct": 0.21212121212121193,
+      "weekly_pace_change_abs": 0.9333333333333327
+    },
+    {
+      "sku_key": "red chamber wandering multi-purpose stick approaching 4.8 g approaching",
+      "name": "RED CHAMBER WANDERING Multi-Purpose Stick Approaching 4.8 g Approaching",
+      "category": "多用棒",
+      "barcodes": [
+        "6975025852054",
+        "6975025856625"
+      ],
+      "aug_total": 9.0,
+      "aug_weekly_pace": 1.8,
+      "sep_total": 3.0,
+      "sep_weekly_pace": 1.0,
+      "weekly_pace_change_pct": -0.4444444444444444,
+      "weekly_pace_change_abs": -0.8
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#chumei 1.5g chumei c301",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Chumei 1.5g Chumei C301",
+      "category": "多用膏",
+      "barcodes": [
+        "6975559370079"
+      ],
+      "aug_total": 58.0,
+      "aug_weekly_pace": 11.6,
+      "sep_total": 37.0,
+      "sep_weekly_pace": 12.333333333333334,
+      "weekly_pace_change_pct": 0.06321839080459779,
+      "weekly_pace_change_abs": 0.7333333333333343
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick distant muse ds200 3.5 g distant muse",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Distant Muse DS200 3.5 g Distant Muse",
+      "category": "水光多用棒",
+      "barcodes": [
+        "6975025855581"
+      ],
+      "aug_total": 12.0,
+      "aug_weekly_pace": 2.4,
+      "sep_total": 5.0,
+      "sep_weekly_pace": 1.6666666666666667,
+      "weekly_pace_change_pct": -0.30555555555555547,
+      "weekly_pace_change_abs": -0.7333333333333332
+    },
+    {
+      "sku_key": "red chamber wandering flawless compact powder c00 7.5 g c00",
+      "name": "RED CHAMBER WANDERING Flawless Compact Powder C00 7.5 g C00",
+      "category": "粉饼",
+      "barcodes": [
+        "6953710824456"
+      ],
+      "aug_total": 35.0,
+      "aug_weekly_pace": 7.0,
+      "sep_total": 23.0,
+      "sep_weekly_pace": 7.666666666666667,
+      "weekly_pace_change_pct": 0.09523809523809534,
+      "weekly_pace_change_abs": 0.666666666666667
+    },
+    {
+      "sku_key": "red chamber wandering dewy multi-purpose stick lingering reverie ds500 3.5 g lingering reverie",
+      "name": "RED CHAMBER WANDERING Dewy Multi-Purpose Stick Lingering Reverie DS500 3.5 g Lingering Reverie",
+      "category": "水光多用棒",
+      "barcodes": [
+        "6975025854454"
+      ],
+      "aug_total": 4.0,
+      "aug_weekly_pace": 0.8,
+      "sep_total": 4.0,
+      "sep_weekly_pace": 1.3333333333333333,
+      "weekly_pace_change_pct": 0.6666666666666665,
+      "weekly_pace_change_abs": 0.5333333333333332
+    },
+    {
+      "sku_key": "red chamber haruki hydraglow multi-use liquid #dream's path gl500 3 g gl500dream path",
+      "name": "RED CHAMBER HARUKI HydraGlow Multi-Use Liquid #Dream's Path GL500 3 g GL500Dream Path",
+      "category": "水光多用液",
+      "barcodes": [
+        "6975025854904"
+      ],
+      "aug_total": 8.0,
+      "aug_weekly_pace": 1.6,
+      "sep_total": 4.0,
+      "sep_weekly_pace": 1.3333333333333333,
+      "weekly_pace_change_pct": -0.16666666666666674,
+      "weekly_pace_change_abs": -0.26666666666666683
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose liquid#all-in 3 g all-in l303",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Liquid#All-in 3 g All-in L303",
+      "category": "多用液",
+      "barcodes": [
+        "6975025852719"
+      ],
+      "aug_total": 12.0,
+      "aug_weekly_pace": 2.4,
+      "sep_total": 8.0,
+      "sep_weekly_pace": 2.6666666666666665,
+      "weekly_pace_change_pct": 0.11111111111111116,
+      "weekly_pace_change_abs": 0.2666666666666666
+    },
+    {
+      "sku_key": "red chamber haruki serenity contour powder #cp000 8 g cp000",
+      "name": "RED CHAMBER HARUKI Serenity Contour Powder #CP000 8 g CP000",
+      "category": "修容盘",
+      "barcodes": [
+        "6975025854959"
+      ],
+      "aug_total": 14.0,
+      "aug_weekly_pace": 2.8,
+      "sep_total": 8.0,
+      "sep_weekly_pace": 2.6666666666666665,
+      "weekly_pace_change_pct": -0.04761904761904756,
+      "weekly_pace_change_abs": -0.1333333333333333
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose cream#jenchun 1.5g jenchun c403",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Cream#Jenchun 1.5g Jenchun C403",
+      "category": "多用膏",
+      "barcodes": [
+        "6975025854355"
+      ],
+      "aug_total": 102.0,
+      "aug_weekly_pace": 20.4,
+      "sep_total": 61.0,
+      "sep_weekly_pace": 20.333333333333332,
+      "weekly_pace_change_pct": -0.0032679738562091387,
+      "weekly_pace_change_abs": -0.06666666666666643
+    },
+    {
+      "sku_key": "red chamber haruki multi-purpose liquid#deep talk l100 3 g deep talk",
+      "name": "RED CHAMBER HARUKI Multi-Purpose Liquid#Deep Talk L100 3 g Deep Talk",
+      "category": "多用液",
+      "barcodes": [
+        "6975025855055"
+      ],
+      "aug_total": 0.0,
+      "aug_weekly_pace": null,
+      "sep_total": 0,
+      "sep_weekly_pace": null,
+      "weekly_pace_change_pct": null,
+      "weekly_pace_change_abs": null
+    }
+  ],
+  "data_quality_additions": [
+    {
+      "id": "comparison_basis_weekly_pace",
+      "severity": "medium",
+      "category": "methodology",
+      "detail": "August has 5 complete weeks and September only has 3 so far -- every comparison here is on a weekly-average-pace basis (period total ÷ number of weeks), not raw totals, so the two periods are comparable despite the different week counts."
+    },
+    {
+      "id": "konvy_excluded_both_periods",
+      "severity": "medium",
+      "category": "coverage",
+      "detail": "Category/SKU comparison excludes Konvy for BOTH August and September (not just because September is missing it) so the comparison stays apples-to-apples on the same 3-channel scope in both periods. Konvy IS included in the overall/channel THB comparison via its 店铺销量 Total row for both periods."
+    },
+    {
+      "id": "konvy_august_product_line_context",
+      "severity": "info",
+      "category": "coverage",
+      "detail": "For context only (not included in any total above): Konvy’s own channel sheet shows August TTL QTY = 1468 PCS -- roughly comparable in size to the other 3 channels’ August total, so the 3-channel total understates true company volume."
+    }
+  ]
+}
